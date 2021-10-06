@@ -1,0 +1,21 @@
+// font-sizes
+$font8: 8px;
+$font10: 10px;
+$font12: 12px;
+$font14: 14px;
+$font16: 16px;
+$font18: 18px;
+$font20: 20px;
+$font22: 22px;
+
+// font weights
+$fontNormal: 400;
+$fontBold: 700;
+$fontExtraBold: 900;
+
+@mixin font($fontSize, $color, $lineHeight: $font16, $fontWeight: $fontBold) {
+  font-size: $fontSize;
+  color: $color;
+  line-height: $lineHeight;
+  font-weight: $fontWeight;
+}

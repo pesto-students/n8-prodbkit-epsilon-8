@@ -1,0 +1,12 @@
+@import './colors';
+
+@mixin flex($align, $justifyContent) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justifyContent;
+}
+
+@mixin buttonLink {
+  color: $white !important;
+  font-weight: bold !important;
+}
