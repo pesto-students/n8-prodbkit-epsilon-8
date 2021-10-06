@@ -1,0 +1,39 @@
+@import '../../../styles/colors';
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.navbarWrapper {
+  @extend .main-bar;
+  height: 4rem;
+}
+
+.flexWrapper {
+  @include flex(center, space-between);
+}
+
+.btnLink {
+  @include buttonLink;
+}
+
+.logo {
+  width: 150px;
+  height: 45px;
+  background: url('../../../../assets/logo.png') no-repeat;
+  background-size: cover;
+}
+
+.navList {
+  display: flex;
+  list-style: none;
+  margin: 0;
+
+  & li a {
+    color: $white;
+    padding: 1rem;
+    font-weight: 500;
+
+    &:hover {
+      color: $grey-secondary;
+    }
+  }
+}
