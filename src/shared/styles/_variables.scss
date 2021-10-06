@@ -1,0 +1,11 @@
+@import './colors';
+
+$borderBlack: solid 1px $black;
+$borderGreyPrimary: solid 1px $grey-primary;
+$borderGreySecondary: solid 1px $grey-secondary;
+
+.main-bar {
+  width: 100%;
+  padding: 0 1rem;
+  background-color: $blue-primary;
+}
