@@ -1,14 +1,12 @@
-import React from 'react';
-
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import cn from 'classnames';
-
-import Navbar, { INavbarItem } from './shared/components/organisms/navbar/Navbar';
-import Loader from './shared/components/molecules/loader/Loader';
-import CustomDrawer from './shared/components/organisms/drawer/Drawer';
+import React from 'react';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import styles from './app.module.scss';
+import Loader from './shared/components/molecules/loader/Loader';
+import CustomDrawer from './shared/components/organisms/drawer/Drawer';
+import Navbar, { INavbarItem } from './shared/components/organisms/navbar/Navbar';
 
 const Teams = React.lazy(() => import('./pages/teams'));
 const Overview = React.lazy(() => import('./pages/dashboard'));

@@ -1,13 +1,11 @@
-import React from 'react';
 import { Drawer } from 'antd';
-
-import { useSelector, useDispatch } from 'react-redux';
 import cn from 'classnames';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { IGlobalState } from '../../../../interfaces/globalState';
 import { hideDrawer } from '../../../../redux-features/common';
 import { drawerNameMap, keyMap } from '../../../constants';
-import { IGlobalState } from '../../../../interfaces/globalState';
-
 import styles from './drawer.module.scss';
 
 const CustomDrawer: React.FC = (props) => {
