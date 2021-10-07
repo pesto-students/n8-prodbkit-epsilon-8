@@ -1,10 +1,9 @@
+import { Button, Divider, Form, Input } from 'antd';
 import React from 'react';
-
-import { Form, Input, Button, Divider } from 'antd';
-
-import styles from './login.module.scss';
 import { useDispatch } from 'react-redux';
+
 import { showDrawer } from '../../redux-features/common';
+import styles from './login.module.scss';
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
