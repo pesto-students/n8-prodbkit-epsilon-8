@@ -10,3 +10,8 @@ export const drawerNameMap: Record<string, string> = {
   login: 'Login',
   signup: 'Signup',
 };
+
+export const modalTitleMap: Record<string, string> = {
+  deleteMember: 'Delete member',
+  deleteTeam: 'Delete Team',
+};

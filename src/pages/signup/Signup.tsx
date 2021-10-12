@@ -14,10 +14,7 @@ const Signup: React.FC = () => {
 
   return (
     <div className={styles.loginWrapper}>
-      <Form
-        layout="vertical"
-        // form={form}
-      >
+      <Form layout="vertical">
         <Form.Item label="Email id">
           <Input placeholder="Enter your email id" size="large" />
         </Form.Item>

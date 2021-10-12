@@ -1,19 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { UserAuthType } from '../shared/interfaces/globalState';
+
 export interface IAuthState {
-  value: number;
+  isUserLoggedin: boolean;
+  loggedinUserRole: UserAuthType;
+  userDetails?: any;
 }
 
-const initialState = { value: 0 };
+const initialState: IAuthState = {
+  isUserLoggedin: true,
+  loggedinUserRole: 'admin',
+  userDetails: {
+    name: 'saurav arora',
+  },
+};
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: 'common',
   initialState,
   reducers: {
-    // to-do
-    // authenticateUser(state) {},
+    loginUser: (state) => {
+      state.isUserLoggedin = true;
+      return state;
+    },
+    logoutUser: (state) => {
+      state.isUserLoggedin = false;
+      return state;
+    },
   },
 });
 
-// export const { authenticateUser } = authSlice.actions;
+export const { loginUser, logoutUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,0 +1,11 @@
+@import '../../../styles/font';
+
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-weight: $fontBold;
+}

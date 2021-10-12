@@ -26,6 +26,7 @@
   display: flex;
   list-style: none;
   margin: 0;
+  padding: 0;
 
   & li a {
     color: $white;
@@ -36,4 +37,11 @@
       color: $grey-secondary;
     }
   }
+}
+
+.settingAndLoginWrapper {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: $white;
 }
