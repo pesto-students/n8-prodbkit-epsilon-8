@@ -1,9 +1,10 @@
 @import './colors';
 
-@mixin flex($align, $justifyContent) {
+@mixin flex($align: center, $justifyContent: space-between, $direction: 'row') {
   display: flex;
   align-items: $align;
   justify-content: $justifyContent;
+  flex-direction: $direction;
 }
 
 @mixin buttonLink {
