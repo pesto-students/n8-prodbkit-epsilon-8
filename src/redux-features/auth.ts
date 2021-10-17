@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-import { UserAuthType } from '../shared/interfaces/globalState';
+import { UserAuthType } from 'shared/interfaces/globalState';
 
 export interface IAuthState {
   isUserLoggedin: boolean;
@@ -12,7 +11,7 @@ const initialState: IAuthState = {
   isUserLoggedin: true,
   loggedinUserRole: 'admin',
   userDetails: {
-    name: 'saurav arora',
+    email: 'saurav.arora@gmail.com',
   },
 };
 

@@ -1,18 +1,23 @@
-import { Button } from 'antd';
+import { Button, ButtonProps } from 'antd';
 import React from 'react';
 
 import styles from './button.module.scss';
 
-interface IButton {
+interface IButton extends ButtonProps {
   text: string;
-  onClick: () => void;
-  icon: React.ReactNode;
+  onClick?: () => void;
+  icon?: React.ReactNode;
 }
 
-const AntDButton: React.FC<IButton> = ({ text, onClick, icon }) => {
+const AntDButton: React.FC<IButton> = ({ text, onClick, icon = <></>, ...props }) => {
   return (
     <div>
-      <Button className={styles.button} type="primary" onClick={onClick} icon={icon}>
+      <Button
+        className={props.type === 'primary' ? styles.buttonPrimary : styles.buttonLink}
+        onClick={onClick}
+        icon={icon}
+        {...props}
+      >
         {text}
       </Button>
     </div>

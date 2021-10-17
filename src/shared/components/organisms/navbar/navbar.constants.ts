@@ -1,5 +1,5 @@
-import { routes } from '../../../../routes';
-import { UserAuthType } from '../../../interfaces/globalState';
+import { routes } from 'routes';
+import { UserAuthType } from 'shared/interfaces/globalState';
 
 export interface INavbarItem {
   name: string;
@@ -11,27 +11,27 @@ export const loggedinNavList: INavbarItem[] = [
   {
     name: 'Dashboard',
     url: routes.dashboard,
-    roles: ['admin'],
+    roles: ['team_lead'],
   },
   {
     name: 'Members',
     url: routes.members,
-    roles: ['all'],
+    roles: ['admin'],
   },
   {
     name: 'Teams',
     url: routes.teams,
-    roles: ['admin', 'manager'],
+    roles: ['admin'],
   },
   {
     name: 'Databases',
     url: routes.databases,
-    roles: ['manager'],
+    roles: ['admin'],
   },
   {
     name: 'Audit Logs',
     url: routes.auditLogs,
-    roles: ['member'],
+    roles: ['admin'],
   },
   {
     name: 'User credentials',
@@ -44,16 +44,16 @@ export const loggedOutNavList: INavbarItem[] = [
   {
     name: 'Home',
     url: routes.home,
-    roles: ['all'],
+    roles: ['admin'],
   },
   {
     name: 'About us',
     url: routes.aboutUs,
-    roles: ['all'],
+    roles: ['admin'],
   },
   {
     name: 'Contact us',
     url: routes.contactUs,
-    roles: ['all'],
+    roles: ['admin'],
   },
 ];

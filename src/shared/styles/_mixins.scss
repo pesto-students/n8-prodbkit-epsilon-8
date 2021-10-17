@@ -1,4 +1,4 @@
-@import './colors';
+@import './light-theme';
 
 @mixin flex($align: center, $justifyContent: space-between, $direction: 'row') {
   display: flex;
@@ -8,6 +8,6 @@
 }
 
 @mixin buttonLink {
-  color: $white !important;
+  color: $secondary-text-color !important;
   font-weight: bold !important;
 }

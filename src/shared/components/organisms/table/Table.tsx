@@ -8,13 +8,6 @@ export interface ITable {
   scroll?: any;
 }
 
-// export interface IColumn {
-//   title: string;
-//   dataIndex: string;
-//   key: string;
-//   props: any;
-// }
-
 const CommonTable: React.FC<ITable> = (props: ITable) => {
   const { columns, data, ...extraProps } = props;
   return (

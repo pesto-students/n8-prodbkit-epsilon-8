@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-import { modalTitleMap } from '../shared/constants';
+import { modalTitleMap } from 'shared/constants';
 
 export interface ICommonState {
   isDrawerVisible: boolean;
   drawerTitle: string;
+  id: string | undefined;
 
   isModalVisible: boolean;
   modalTitle: string;
@@ -14,6 +14,7 @@ export interface ICommonState {
 const initialState = {
   isDrawerVisible: false,
   drawerTitle: '',
+  id: undefined,
 
   isModalVisible: false,
   modalTitle: '',
@@ -24,25 +25,29 @@ const commonSlice = createSlice({
   name: 'common',
   initialState,
   reducers: {
-    showDrawer: (state, { payload }) => {
+    showDrawer: (state, { payload }: { payload: Record<string, string> }) => {
       state.isDrawerVisible = true;
-      state.drawerTitle = payload;
+      state.drawerTitle = payload.key;
+      state.id = payload.id;
       return state;
     },
     hideDrawer: (state) => {
       state.isDrawerVisible = false;
       state.drawerTitle = '';
+      state.id = undefined;
       return state;
     },
     showModal: (state, { payload }: { payload: Record<string, string> }) => {
       state.isModalVisible = true;
       state.modalTitle = modalTitleMap[payload.key];
       state.modalText = payload.text;
+      state.id = payload.id;
       return state;
     },
     hideModal: (state) => {
       state.isModalVisible = false;
       state.modalTitle = '';
+      state.id = undefined;
       return state;
     },
   },

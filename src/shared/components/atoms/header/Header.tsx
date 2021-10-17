@@ -15,6 +15,7 @@ const Header: React.FC<IHeader> = ({ title, buttonText, buttonCallback, buttonIc
     <div className={styles.headerWrapper}>
       <h2 className={styles.title}>{title}</h2>
       <AntDButton
+        type="primary"
         text={buttonText}
         onClick={buttonCallback}
         icon={buttonIcon ? buttonIcon : <></>}

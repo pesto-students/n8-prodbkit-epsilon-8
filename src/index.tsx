@@ -12,7 +12,7 @@ import reportWebVitals from './reportWebVitals';
 import store from './store';
 
 Sentry.init({
-  dsn: 'https://1b606f2f97604e91aa2ec41bf69d9646@o1030414.ingest.sentry.io/5997677',
+  dsn: process.env.REACT_APP_SENTRY_DNS_URL,
   integrations: [new Integrations.BrowserTracing()],
   tracesSampleRate: 1.0,
 });

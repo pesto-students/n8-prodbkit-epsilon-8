@@ -1,9 +1,9 @@
 import { Modal } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { hideModal } from 'redux-features/common';
+import { IGlobalState } from 'shared/interfaces/globalState';
 
-import { hideModal } from '../../../../redux-features/common';
-import { IGlobalState } from '../../../interfaces/globalState';
 import styles from './modal.module.scss';
 
 const AntDModal: React.FC = () => {
@@ -14,11 +14,15 @@ const AntDModal: React.FC = () => {
     dispatch(hideModal());
   };
 
+  const onOk = () => {
+    console.log('ok');
+  };
+
   return (
     <Modal
       title={commonData.modalTitle}
       visible={commonData.isModalVisible}
-      //   onOk={onOk}
+      onOk={onOk}
       onCancel={handleCancel}
       okButtonProps={{ className: `${styles.okBtn}` }}
     >
