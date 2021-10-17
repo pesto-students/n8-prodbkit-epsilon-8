@@ -9,7 +9,7 @@ const Signup: React.FC = () => {
   const dispatch = useDispatch();
 
   const navigateToLogin = () => {
-    dispatch(showDrawer('login'));
+    dispatch(showDrawer({ key: 'login' }));
   };
 
   return (

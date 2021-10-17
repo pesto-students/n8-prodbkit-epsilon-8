@@ -1,141 +1,111 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Skeleton, Space } from 'antd';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  ExclamationCircleOutlined,
+  InfoCircleOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
+import { notification, Skeleton, Space, Table } from 'antd';
+import confirm from 'antd/lib/modal/confirm';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IGlobalState } from 'shared/interfaces/globalState';
 
-import { showModal } from '../../redux-features/common';
+import { showDrawer, showModal } from '../../redux-features/common';
 import Header from '../../shared/components/atoms/header/Header';
 import AntDSkeleton from '../../shared/components/atoms/skeleton/Skeleton';
-import CommonTable from '../../shared/components/organisms/table/Table';
 import { modalTitleMap } from '../../shared/constants';
-import { ITableData } from './member.interface';
+import { IMemberData } from './member.interface';
 import styles from './members.module.scss';
+import { updateMemberList } from './redux/members';
+import { getAllMembers, removeMember } from './services/members.service';
 
 const PAGE_TITLE = 'Members';
 
-const tableColumns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    sorter: (a: ITableData, b: ITableData) => a.name.localeCompare(b.name),
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-    sorter: (a: ITableData, b: ITableData) => a.age - b.age,
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-];
-
-const tableData: ITableData[] = [
-  {
-    key: '1',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-  {
-    key: '3',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '4',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-  {
-    key: '5',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '6',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-  {
-    key: '7',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '8',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-  {
-    key: '9',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '10',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-  {
-    key: '11',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '12',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-  {
-    key: '13',
-    name: 'Mike',
-    age: 32,
-    address: '10 Downing Street',
-  },
-  {
-    key: '14',
-    name: 'John',
-    age: 42,
-    address: '10 Downing Street',
-  },
-];
-
 const Members: React.FC = () => {
   const dispatch = useDispatch();
+  const globalStoreData = useSelector((state: IGlobalState) => state.member);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [memberList, setMemberList] = useState<IMemberData[]>([]);
 
-  const handleAddMember = () => {
-    dispatch(
-      showModal({
-        key: modalTitleMap.deleteMember,
-        text: 'Are you sure you want to delete member DEMO123?',
-      }),
-    );
+  useEffect(() => {
+    setIsLoading(true);
+    getAllMembers().then((res: any) => {
+      setMemberList(res.data);
+      setIsLoading(false);
+    });
+  }, [globalStoreData.memberList]);
+
+  const handleViewMember = (id: string) => {
+    dispatch(showDrawer({ key: 'viewMember', id: id }));
   };
 
-  // const handleDeleteMember = (id: number) => {};
+  const handleEditMember = (id: string) => {
+    dispatch(showDrawer({ key: 'editMember', id: id }));
+  };
+
+  const deleteMember = (id: string) => {
+    removeMember(id).then((res: any) => {
+      if (res.status === 204) {
+        dispatch(updateMemberList(res.data));
+        notification.success({
+          message: 'Member successfully deleted.',
+        });
+      } else {
+        notification.error({
+          message: "Couldn't delete this member. Please try again.",
+        });
+      }
+    });
+  };
+
+  const handleDeleteMember = (id: string, email: string) => {
+    confirm({
+      title: `Are you sure delete this member: ${email}?`,
+      icon: <ExclamationCircleOutlined />,
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk: () => {
+        deleteMember(id);
+      },
+    });
+  };
+
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Username',
+      dataIndex: 'username',
+      key: 'username',
+    },
+    {
+      title: 'Actions',
+      key: 'id',
+      render: (text: string, record: any) => (
+        <Space size={8}>
+          <InfoCircleOutlined onClick={() => handleViewMember(record.id)} />
+          <EditOutlined onClick={() => handleEditMember(record.id)} />
+          <DeleteOutlined onClick={() => handleDeleteMember(record.id, record.email)} />
+        </Space>
+      ),
+    },
+  ];
+
+  const handleAddMember = () => {
+    dispatch(showDrawer({ key: 'addMember' }));
+  };
 
   return (
     <div className={styles.memberWrapper}>
@@ -146,12 +116,15 @@ const Members: React.FC = () => {
       {isLoading ? (
         <AntDSkeleton />
       ) : (
-        <Header
-          title={PAGE_TITLE}
-          buttonText="Add Member"
-          buttonCallback={handleAddMember}
-          buttonIcon={<PlusOutlined />}
-        />
+        <>
+          <Header
+            title={PAGE_TITLE}
+            buttonText="Add Member"
+            buttonCallback={handleAddMember}
+            buttonIcon={<PlusOutlined />}
+          />
+          <Table columns={columns} dataSource={memberList} />
+        </>
       )}
     </div>
   );
