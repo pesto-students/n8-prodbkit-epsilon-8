@@ -1,7 +1,7 @@
-@import '../../../styles/colors';
+@import 'shared/styles/light-theme';
 
 .okBtn,
 .okBtn:hover,
 .okBtn:focus {
-  background-color: $blue-primary;
+  background-color: $primary-color;
 }

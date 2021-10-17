@@ -1,8 +1,10 @@
-@import '../../../styles/_colors.scss';
+@import 'shared/styles/_colors.scss';
 
 .lds_ellipsis {
   display: inline-block;
-  position: relative;
+  position: absolute;
+  top: 10rem;
+  left: 10rem;
   width: 80px;
   height: 80px;
 }

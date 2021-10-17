@@ -1,10 +1,10 @@
-@import '../../../styles/variables';
-@import '../../../styles//colors';
-@import '../../../styles//font';
-@import '../../../styles//mixins';
+@import 'shared/styles/variables';
+@import 'shared/styles//light-theme';
+@import 'shared/styles//font';
+@import 'shared/styles//mixins';
 
-.drawer {
-  padding: 0;
+.drawerBody {
+  padding: 1rem;
 }
 
 .drawerHeader {
@@ -14,5 +14,5 @@
 }
 
 .headerText {
-  @include font(1rem, $white, 1rem, $fontBold);
+  @include font(1rem, $secondary-text-color, 1rem, $fontBold);
 }

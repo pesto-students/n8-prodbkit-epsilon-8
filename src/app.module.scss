@@ -1,5 +1,6 @@
 @import './shared/styles/variables';
-@import './shared/styles/colors';
+@import './shared/styles/light-theme';
+@import './shared/styles/mixins';
 
 .App {
   text-align: center;
@@ -7,18 +8,16 @@
 
 Button {
   [type='link'] {
-    color: #fff !important;
+    color: $primary-background !important;
   }
 }
 
 .footerWrapper {
   @extend .main-bar;
+  @include flex(center, center);
   height: 2rem;
-  color: $white;
+  color: $secondary-text-color;
   text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .positionBottom {

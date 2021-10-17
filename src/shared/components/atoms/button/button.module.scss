@@ -1,7 +1,16 @@
-@import '../../../styles/colors';
+@import 'shared/styles/light-theme';
+@import 'shared/styles/font';
 
-.button,
-.button:hover,
-.button:focus {
-  background-color: $blue-primary;
+.buttonPrimary,
+.buttonPrimary:hover,
+.buttonPrimary:focus {
+  background-color: $primary-color;
+}
+
+.buttonLink,
+.buttonLink:hover,
+.buttonLink:focus {
+  background-color: $primary-background;
+  color: $primary-color;
+  font-weight: $fontBolder;
 }

@@ -1,6 +1,7 @@
-@import '../../../styles/colors';
-@import '../../../styles/variables';
-@import '../../../styles/mixins';
+@import 'shared/styles/light-theme';
+@import 'shared/styles/variables';
+@import 'shared/styles/mixins';
+@import 'shared/styles/font';
 
 .navbarWrapper {
   @extend .main-bar;
@@ -29,12 +30,12 @@
   padding: 0;
 
   & li a {
-    color: $white;
+    color: $secondary-text-color;
     padding: 1rem;
     font-weight: 500;
 
     &:hover {
-      color: $grey-secondary;
+      color: $secondary-border-color;
     }
   }
 }
@@ -42,6 +43,6 @@
 .settingAndLoginWrapper {
   display: flex;
   align-items: center;
-  font-size: 1rem;
-  color: $white;
+  font-size: $font16;
+  color: $secondary-text-color;
 }

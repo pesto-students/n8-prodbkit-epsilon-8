@@ -10,7 +10,8 @@ $font22: 22px;
 
 // font weights
 $fontNormal: 400;
-$fontBold: 700;
+$fontBold: 500;
+$fontBolder: 700;
 $fontExtraBold: 900;
 
 @mixin font($fontSize, $color, $lineHeight: $font16, $fontWeight: $fontBold) {
