@@ -20,17 +20,21 @@ export interface INavbar {
 const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
   const dispatch = useDispatch();
 
-  const handleButtonClick = () => {
-    if (isUserLoggedin) {
-    } else {
-      dispatch(showDrawer('login'));
-    }
+  const handleLogin = () => {
+    dispatch(showDrawer('login'));
+  };
+
+  const handleLogout = () => {
+    // TODO
+    console.log('user logged out..');
   };
 
   const getNavbarItemView = (navItem: INavbarItem, index: number) => {
     return (
       <li key={index}>
-        <Link to={navItem.url}>{navItem.name}</Link>
+        <Link className={styles.navListItem} to={navItem.url}>
+          {navItem.name}
+        </Link>
       </li>
     );
   };
@@ -42,9 +46,15 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
         <ul className={styles.navList}>{navbarItemList.map(getNavbarItemView)}</ul>
       </div>
       <div className={styles.link}>
-        <Button className={styles.btnLink} type="link" onClick={handleButtonClick}>
-          {isUserLoggedin ? 'Logout' : 'Login'}
-        </Button>
+        {isUserLoggedin ? (
+          <Button className={styles.btnLink} type="link" onClick={handleLogout}>
+            Logout
+          </Button>
+        ) : (
+          <Button className={styles.btnLink} type="link" onClick={handleLogin}>
+            Login
+          </Button>
+        )}
       </div>
     </div>
   );

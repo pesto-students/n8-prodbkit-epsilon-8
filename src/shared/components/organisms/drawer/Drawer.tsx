@@ -26,7 +26,7 @@ const CustomDrawer: React.FC = (props) => {
 
   const getDrawerContentFromKey = () => {
     if (commonData.drawerKey === '') {
-      return <></>;
+      return null;
     }
     const DrawerRenderComponent = (keyMap as Record<string, React.FC>)[
       commonData.drawerKey as string

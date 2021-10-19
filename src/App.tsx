@@ -56,14 +56,13 @@ const App: React.FC = () => {
             </header>
             <React.Suspense fallback={<Loader />}>
               <Switch>
-                <Route exact path="/" component={Overview} />
                 <Route path="/dashboard" component={Overview} />
                 <Route path="/members" component={Members} />
                 <Route path="/teams" component={Teams} />
                 <Route path="/databases" component={Databases} />
                 <Route path="/audit-logs" component={AuditLogs} />
                 <Route path="/user-credentials" component={UserCredentials} />
-                <Redirect to="/" />
+                <Redirect to="/dashboard" />
               </Switch>
             </React.Suspense>
           </BrowserRouter>

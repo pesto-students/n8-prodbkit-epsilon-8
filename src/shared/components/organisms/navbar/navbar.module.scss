@@ -1,5 +1,5 @@
 @import '../../../styles/colors';
-@import '../../../styles/variables';
+@import '../../../styles/global';
 @import '../../../styles/mixins';
 
 .navbarWrapper {
@@ -26,14 +26,14 @@
   display: flex;
   list-style: none;
   margin: 0;
+}
 
-  & li a {
-    color: $white;
-    padding: 1rem;
-    font-weight: 500;
+.navListItem {
+  color: $white;
+  padding: 1rem;
+  font-weight: 500;
 
-    &:hover {
-      color: $grey-secondary;
-    }
+  &:hover {
+    color: $grey-secondary;
   }
 }
