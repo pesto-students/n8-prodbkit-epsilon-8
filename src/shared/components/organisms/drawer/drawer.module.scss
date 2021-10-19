@@ -16,3 +16,7 @@
 .headerText {
   @include font(1rem, $secondary-text-color, 1rem, $fontBold);
 }
+
+.closeIcon {
+  color: $secondary-text-color;
+}

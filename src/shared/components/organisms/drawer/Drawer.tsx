@@ -1,3 +1,4 @@
+import { CloseOutlined } from '@ant-design/icons';
 import { Drawer } from 'antd';
 import cn from 'classnames';
 import React from 'react';
@@ -50,6 +51,7 @@ const AntDDrawer: React.FC = (props) => {
       bodyStyle={{ padding: 0 }}
       onClose={onCloseDrawer}
       width={400}
+      closeIcon={<CloseOutlined className={styles.closeIcon} />}
     >
       <DrawerBody />
     </Drawer>

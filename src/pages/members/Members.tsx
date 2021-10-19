@@ -10,12 +10,11 @@ import confirm from 'antd/lib/modal/confirm';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
+import Header from 'shared/components/atoms/header/Header';
+import AntDSkeleton from 'shared/components/atoms/skeleton/Skeleton';
 import { IGlobalState } from 'shared/interfaces/globalState';
 
 import { showDrawer, showModal } from '../../redux-features/common';
-import Header from '../../shared/components/atoms/header/Header';
-import AntDSkeleton from '../../shared/components/atoms/skeleton/Skeleton';
-import { modalTitleMap } from '../../shared/constants';
 import { IMemberData } from './member.interface';
 import styles from './members.module.scss';
 import { updateMemberList } from './redux/members';

@@ -1,7 +1,9 @@
-import data from 'assets/mock-data/members.json';
+import memberData from 'assets/mock-data/members.json';
+import teamData from 'assets/mock-data/teams.json';
 import MockAdapter from 'axios-mock-adapter';
 
-let membersList = data.members;
+let membersList = memberData.members;
+let teamsList = teamData.teams;
 
 export const isMockEnabled = () => {
   console.log(process.env.REACT_APP_MOCK_ENABLED);
@@ -15,6 +17,12 @@ export const initializeAxiosMockAdapter = (instance) => {
   mock.onPost('/member').reply((config) => addMember(config));
   mock.onPut(/\/member\/\d+/).reply((config) => editMember(config));
   mock.onDelete(/\/member\/\d+/).reply((config) => removeMember(config));
+
+  mock.onGet('/teams').reply(() => getTeams());
+  mock.onGet(/\/teams\/\d+/).reply((config) => getTeam(config));
+  mock.onPost('/team').reply((config) => addTeam(config));
+  mock.onPut(/\/team\/\d+/).reply((config) => editTeam(config));
+  mock.onDelete(/\/team\/\d+/).reply((config) => removeTeam(config));
 };
 
 export const getMembers = () => {
@@ -49,5 +57,38 @@ export const editMember = (config) => {
 export const removeMember = (config) => {
   const id = extractIdPathParamFromUrl(config);
   membersList = membersList.filter((c) => c.id !== id);
-  return [204, membersList];
+  return [205, membersList];
+};
+
+// Teams
+
+export const getTeams = () => {
+  return [200, teamsList];
+};
+
+export const getTeam = (config) => {
+  const id = extractIdPathParamFromUrl(config);
+  const member = teamsList.find((c) => c.id === id);
+  return [200, member];
+};
+
+export const addTeam = (config) => {
+  const team = JSON.parse(config.data);
+  teamsList.unshift(team);
+  // membersList.push(member);
+  return [200, teamsList];
+};
+
+export const editTeam = (config) => {
+  const id = extractIdPathParamFromUrl(config);
+  const teamIndex = teamsList.findIndex((c) => c.id === id);
+  const team = JSON.parse(config.data);
+  teamsList[teamIndex] = team;
+  return [200, teamsList];
+};
+
+export const removeTeam = (config) => {
+  const id = extractIdPathParamFromUrl(config);
+  teamsList = teamsList.filter((c) => c.id !== id);
+  return [204, teamsList];
 };

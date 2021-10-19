@@ -3,9 +3,11 @@ import { Button, Space } from 'antd';
 import cn from 'classnames';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { logoutUser } from 'redux-features/auth';
 import { showDrawer } from 'redux-features/common';
+import { routes } from 'routes';
 import UserAvatar from 'shared/components/atoms/avatar/Avatar';
 import { IGlobalState } from 'shared/interfaces/globalState';
 
@@ -19,13 +21,13 @@ export interface INavbar {
 
 const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const history = useHistory();
   const globalAuthData = useSelector((globalState: IGlobalState) => globalState.auth);
   // const [activeLink, setActiveLink] = useState(navbarItemList[0]?.name);
 
   const handleButtonClick = () => {
     if (isUserLoggedin) {
-      dispatch(logoutUser());
+      handleUserLogout();
     } else {
       dispatch(showDrawer({ key: 'login' }));
     }
@@ -33,6 +35,7 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
 
   const handleUserLogout = () => {
     dispatch(logoutUser());
+    history.push(routes.home);
   };
 
   const navbarItemView = (navItem: INavbarItem, index: number) => {
@@ -87,11 +90,7 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
       </div>
       {isUserLoggedin ? (
         <Space className={styles.settingAndLoginWrapper} direction="horizontal" size={16}>
-          {/* <Dropdown trigger={['click']} overlay={dropdownMenu} arrow>
-            <SettingOutlined onClick={(e) => e.preventDefault()} />
-          </Dropdown> */}
           <UserAvatar label={getUserEmail()} size={26} />
-
           <Button
             className={styles.btnLink}
             type="link"
@@ -103,7 +102,7 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
         </Space>
       ) : (
         <div className={styles.settingAndLoginWrapper}>
-          <Button className={styles.btnLink} type="link" onClick={handleUserLogout}>
+          <Button className={styles.btnLink} type="link" onClick={handleButtonClick}>
             Login
           </Button>
         </div>

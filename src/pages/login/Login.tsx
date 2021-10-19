@@ -1,5 +1,6 @@
 import { Button, Divider, Form, Input } from 'antd';
 import React from 'react';
+import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
 import { showDrawer } from 'redux-features/common';
 
@@ -33,9 +34,10 @@ const Login: React.FC = () => {
       </Form.Item>
       <Divider plain>OR</Divider>
       <Form.Item>
-        <Button type="primary" size="large" className={styles.formBtn}>
+        <GoogleLogin clientId="" className={styles.googleLoginBtn} />
+        {/* <Button type="primary" size="large" className={styles.formBtn}>
           Login via google
-        </Button>
+        </Button> */}
       </Form.Item>
       <Divider orientation="right" plain>
         {"Don't have an account?"}
