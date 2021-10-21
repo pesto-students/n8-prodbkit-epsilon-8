@@ -1,0 +1,18 @@
+@import '../../../styles//colors';
+@import '../../../styles//font';
+@import '../../../styles/global';
+@import '../../../styles//mixins';
+
+.drawer {
+  padding: 0;
+}
+
+.drawerHeader {
+  @extend .main-bar;
+  @include flex(center, left);
+  height: 4rem;
+}
+
+.headerText {
+  @include font(1rem, $white, 1rem, $fontBold);
+}

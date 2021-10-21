@@ -1,0 +1,27 @@
+@import './shared/styles/colors';
+@import './shared/styles/global';
+
+.App {
+  text-align: center;
+}
+
+Button {
+  [type='link'] {
+    color: #fff !important;
+  }
+}
+
+.footerWrapper {
+  @extend .main-bar;
+  height: 2rem;
+  color: $white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.positionBottom {
+  position: fixed;
+  bottom: 0;
+}
