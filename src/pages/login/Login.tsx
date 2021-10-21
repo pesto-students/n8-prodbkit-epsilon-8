@@ -1,14 +1,13 @@
 import { Button, Divider, Form, Input, notification } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
 import { GoogleLogin } from 'react-google-login';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { loginUser } from 'redux-features/auth';
 import { hideDrawer, showDrawer } from 'redux-features/common';
-import { routes } from 'routes';
 
 import styles from './login.module.scss';
 
@@ -17,7 +16,7 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const history = useHistory();
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt_token']);
+  // const [cookies, setCookie, removeCookie] = useCookies(['jwt_token']);
 
   const loginPostInfo = useMutation((token: any) =>
     axios.post(`http://65.2.82.9:3000/api/auth/login`, token),
@@ -27,7 +26,7 @@ const Login: React.FC = () => {
     dispatch(showDrawer({ key: 'signup' }));
   };
 
-  const saveJWTinCookie = (token: string) => {
+  const saveJWTinLocalStorage = (token: string) => {
     localStorage.setItem('jwt_token', token);
     // setCookie('jwt_token', 'bearer ' + token);
   };
@@ -36,14 +35,15 @@ const Login: React.FC = () => {
     if (response && response.tokenId) {
       const { tokenId } = response;
       setTokenID(tokenId);
-      saveJWTinCookie(tokenId);
+
       try {
         await loginPostInfo.mutate(
           {
             id_token: tokenId,
           },
           {
-            onSuccess: () => {
+            onSuccess: ({ data }) => {
+              saveJWTinLocalStorage(data.access_token);
               dispatch(hideDrawer());
               dispatch(loginUser());
             },

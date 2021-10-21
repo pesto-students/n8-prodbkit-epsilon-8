@@ -35,6 +35,7 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
 
   const handleUserLogout = () => {
     dispatch(logoutUser());
+    localStorage.removeItem('jwt_token');
     history.push(routes.home);
   };
 
