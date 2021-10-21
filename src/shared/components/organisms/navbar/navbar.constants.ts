@@ -13,11 +13,11 @@ export const loggedinNavList: INavbarItem[] = [
     url: routes.dashboard,
     roles: ['team_lead'],
   },
-  {
-    name: 'Members',
-    url: routes.members,
-    roles: ['admin'],
-  },
+  // {
+  //   name: 'Members',
+  //   url: routes.members,
+  //   roles: ['admin'],
+  // },
   {
     name: 'Teams',
     url: routes.teams,

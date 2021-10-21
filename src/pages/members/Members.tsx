@@ -5,37 +5,37 @@ import {
   InfoCircleOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { notification, Skeleton, Space, Table } from 'antd';
+import { notification, Space, Table } from 'antd';
 import confirm from 'antd/lib/modal/confirm';
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import React from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router';
 import Header from 'shared/components/atoms/header/Header';
-import AntDSkeleton from 'shared/components/atoms/skeleton/Skeleton';
-import { IGlobalState } from 'shared/interfaces/globalState';
+import { getUrlById } from 'shared/utils/api';
 
-import { showDrawer, showModal } from '../../redux-features/common';
-import { IMemberData } from './member.interface';
+import { showDrawer } from '../../redux-features/common';
 import styles from './members.module.scss';
 import { updateMemberList } from './redux/members';
-import { getAllMembers, removeMember } from './services/members.service';
+import { removeMember } from './services/members.service';
 
 const PAGE_TITLE = 'Members';
 
 const Members: React.FC = () => {
   const dispatch = useDispatch();
-  const globalStoreData = useSelector((state: IGlobalState) => state.member);
+  const { id }: any = useParams();
+  const memberAPIResponse = useQuery(`member${id}`, () => fetchMemberList(id));
+  const { data } = memberAPIResponse;
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [memberList, setMemberList] = useState<IMemberData[]>([]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getAllMembers().then((res: any) => {
-      setMemberList(res.data);
-      setIsLoading(false);
+  const fetchMemberList = (id: string) => {
+    return axios.get(getUrlById('/member', id), {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      },
     });
-  }, [globalStoreData.memberList]);
+  };
 
   const handleViewMember = (id: string) => {
     dispatch(showDrawer({ key: 'viewMember', id: id }));
@@ -88,6 +88,12 @@ const Members: React.FC = () => {
       title: 'Username',
       dataIndex: 'username',
       key: 'username',
+      render: (text: string, record: any) => <span>{record.username || '-'}</span>,
+    },
+    {
+      title: 'Role',
+      dataIndex: 'role',
+      key: 'role',
     },
     {
       title: 'Actions',
@@ -112,19 +118,13 @@ const Members: React.FC = () => {
         <meta name="Pro-DB Kit" content="Ninja 8 demo app" charSet="utf-8" />
         <title>{PAGE_TITLE}</title>
       </Helmet>
-      {isLoading ? (
-        <AntDSkeleton />
-      ) : (
-        <>
-          <Header
-            title={PAGE_TITLE}
-            buttonText="Add Member"
-            buttonCallback={handleAddMember}
-            buttonIcon={<PlusOutlined />}
-          />
-          <Table columns={columns} dataSource={memberList} />
-        </>
-      )}
+      <Header
+        title={PAGE_TITLE}
+        buttonText="Add Member"
+        buttonCallback={handleAddMember}
+        buttonIcon={<PlusOutlined />}
+      />
+      <Table columns={columns} loading={memberAPIResponse.isLoading} dataSource={data?.data} />
     </div>
   );
 };

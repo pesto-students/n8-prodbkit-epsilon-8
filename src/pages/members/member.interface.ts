@@ -1,12 +1,10 @@
 export interface IMemberData {
-  id: string;
-  name: string;
   email: string;
-  username: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
+  id: string;
+  member_id: string;
+  name: string;
   role: string;
+  username: string | null;
 }
 
 export interface IMembers {
@@ -22,6 +20,6 @@ export interface IMemberState {
   memberList: IMemberData[];
 }
 
-export type IMemberPostData = Omit<IMemberData, 'deletedAt'>;
+export type IMemberPostData = IMemberData;
 
 export type IMemberPutData = Omit<IMemberData, 'createdAt' | 'deletedAt'>;

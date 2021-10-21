@@ -5,37 +5,38 @@ import {
   InfoCircleOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { notification, Space, Table } from 'antd';
+import { notification, Space, Table, Tag } from 'antd';
 import confirm from 'antd/lib/modal/confirm';
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
+import { useQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import Header from 'shared/components/atoms/header/Header';
-import AntDSkeleton from 'shared/components/atoms/skeleton/Skeleton';
-import { IGlobalState } from 'shared/interfaces/globalState';
+import { getURL } from 'shared/utils/api';
 
 import { showDrawer } from '../../redux-features/common';
 import { updateTeamList } from './redux/teams';
-import { getAllTeams, removeTeam } from './services/teams.service';
-import { ITeamsData } from './teams.interface';
+import { removeTeam } from './services/teams.service';
 import styles from './teams.module.scss';
 
 const PAGE_TITLE = 'Teams';
 
+const fetchTeamsList = () => {
+  return axios.get(getURL('/team'), {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
 const Teams: React.FC = () => {
   const dispatch = useDispatch();
-  const globalStoreData = useSelector((state: IGlobalState) => state.member);
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [teamList, setTeamList] = useState<ITeamsData[]>([]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    getAllTeams().then((res: any) => {
-      setTeamList(res.data);
-      setIsLoading(false);
-    });
-  }, [globalStoreData.memberList]);
+  const history = useHistory();
+  const teamsAPIResponse = useQuery('teams', fetchTeamsList);
+  const { data } = teamsAPIResponse;
 
   const handleViewTeam = (id: string) => {
     dispatch(showDrawer({ key: 'viewMember', id: id }));
@@ -73,33 +74,42 @@ const Teams: React.FC = () => {
     });
   };
 
+  const handleTeamClick = (teamId: string) => {
+    history.push(`/members/${teamId}`);
+  };
+
   const columns = [
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      render: (text: string, record: any) => (
+        <Tag onClick={() => handleTeamClick(record.team_id)} color="#108ee9">
+          {record.name}
+        </Tag>
+      ),
     },
     {
-      title: 'Databases',
-      dataIndex: 'databases',
-      key: 'databases',
+      title: 'Description',
+      dataIndex: 'description',
+      key: 'description',
     },
     {
-      title: 'Members',
-      dataIndex: 'members',
-      key: 'members',
+      title: 'Tech Lead',
+      dataIndex: 'tech_lead',
+      key: 'tech_lead',
     },
-    // {
-    //   title: 'Actions',
-    //   key: 'id',
-    //   render: (text: string, record: any) => (
-    //     <Space size={8}>
-    //       <InfoCircleOutlined onClick={() => handleViewTeam(record.id)} />
-    //       <EditOutlined onClick={() => handleEditTeam(record.id)} />
-    //       <DeleteOutlined onClick={() => handleDeleteTeam(record.id, record.email)} />
-    //     </Space>
-    //   ),
-    // },
+    {
+      title: 'Actions',
+      key: 'team_id',
+      render: (text: string, record: any) => (
+        <Space size={8}>
+          <InfoCircleOutlined onClick={() => handleViewTeam(record.id)} />
+          <EditOutlined onClick={() => handleEditTeam(record.id)} />
+          <DeleteOutlined onClick={() => handleDeleteTeam(record.id, record.email)} />
+        </Space>
+      ),
+    },
   ];
 
   const handleAddTeam = () => {
@@ -112,19 +122,18 @@ const Teams: React.FC = () => {
         <meta name="Pro-DB Kit" content="Ninja 8 demo app" charSet="utf-8" />
         <title>{PAGE_TITLE}</title>
       </Helmet>
-      {isLoading ? (
-        <AntDSkeleton />
-      ) : (
-        <>
-          {/* <Header
-            title={PAGE_TITLE}
-            buttonText="Add Team"
-            buttonCallback={handleAddTeam}
-            buttonIcon={<PlusOutlined />}
-          /> */}
-          <Table columns={columns} dataSource={teamList} />
-        </>
-      )}
+      <Header
+        title={PAGE_TITLE}
+        buttonText="Add Team"
+        buttonCallback={handleAddTeam}
+        buttonIcon={<PlusOutlined />}
+      />
+      <Table
+        columns={columns}
+        loading={teamsAPIResponse.isLoading}
+        rowKey={'team_id'}
+        dataSource={teamsAPIResponse === undefined ? [] : (data?.data as any)}
+      />
     </div>
   );
 };

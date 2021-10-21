@@ -63,7 +63,7 @@ const MemberForm: React.FC = () => {
   };
 
   const handleCreateMember = () => {
-    const formattedData = formatFormPostData(form.getFieldsValue());
+    const formattedData = formatFormPostData(form.getFieldsValue()) as any;
     createMember(formattedData).then((res: any) => {
       if (res.status === 200) {
         dispatch(updateMemberList(res.data));

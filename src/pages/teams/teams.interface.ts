@@ -1,12 +1,10 @@
 export interface ITeamsData {
-  id: string;
+  created: string;
+  description: string;
   name: string;
-  email: string;
-  username: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-  role: string;
+  team_id: string;
+  tech_lead: string;
+  updated: string;
 }
 
 export interface ITeams {

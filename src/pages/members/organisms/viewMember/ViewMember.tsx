@@ -11,7 +11,7 @@ import styles from './viewMember.module.scss';
 
 const ViewMember: React.FC = () => {
   const commonStoreData = useSelector((state: IGlobalState) => state.common);
-  const [memberInfo, setMemberInfo] = useState<IMemberData>({} as IMemberData);
+  const [memberInfo, setMemberInfo] = useState<any>({} as any);
 
   useEffect(() => {
     const id = commonStoreData.id as string;

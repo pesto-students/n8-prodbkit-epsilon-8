@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { IMemberPostData, IMemberPutData } from 'pages/members/member.interface';
 
-export const formatFormPostData = (data: any): IMemberPostData => {
+export const formatFormPostData = (data: any): any => {
   return {
     id: '12',
     name: data.name,
@@ -13,7 +13,7 @@ export const formatFormPostData = (data: any): IMemberPostData => {
   };
 };
 
-export const formatFormPutData = (data: any): IMemberPutData => {
+export const formatFormPutData = (data: any): any => {
   return {
     id: '12',
     name: data.name,

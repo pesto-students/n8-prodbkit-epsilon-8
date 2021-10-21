@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { routes } from 'routes';
 import Loader from 'shared/components/atoms/loader/Loader';
+import AntDSkeleton from 'shared/components/atoms/skeleton/Skeleton';
 import AntDDrawer from 'shared/components/organisms/drawer/Drawer';
 import AntDModal from 'shared/components/organisms/modal/Modal';
 import Navbar from 'shared/components/organisms/navbar/Navbar';
@@ -44,14 +45,14 @@ const App: React.FC = () => {
                 navbarItemList={globalAuthData.isUserLoggedin ? loggedinNavList : loggedOutNavList}
               />
             </header>
-            <React.Suspense fallback={<Loader />}>
+            <React.Suspense fallback={<AntDSkeleton />}>
               <Switch>
                 <Route exact path={routes.default} component={Overview} />
                 <Route exact path={routes.home} component={Home} />
                 <Route exact path={routes.default} component={Overview} />
                 <Route exact path={routes.default} component={Overview} />
                 <Route path={routes.dashboard} component={Overview} />
-                <Route path={routes.members} component={Members} />
+                <Route path="/members/:id" component={Members} />
                 <Route path={routes.teams} component={Teams} />
                 <Route path={routes.databases} component={Databases} />
                 <Route path={routes.auditLogs} component={AuditLogs} />

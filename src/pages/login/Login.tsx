@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { loginUser } from 'redux-features/auth';
 import { hideDrawer, showDrawer } from 'redux-features/common';
+import { getURL } from 'shared/utils/api';
 
 import styles from './login.module.scss';
 
@@ -18,9 +19,9 @@ const Login: React.FC = () => {
   const history = useHistory();
   // const [cookies, setCookie, removeCookie] = useCookies(['jwt_token']);
 
-  const loginPostInfo = useMutation((token: any) =>
-    axios.post(`http://65.2.82.9:3000/api/auth/login`, token),
-  );
+  const loginPostInfo = useMutation((token: any) => axios.post(getURL('/auth/login'), token), {
+    retry: false,
+  });
 
   const navigateToSignup = () => {
     dispatch(showDrawer({ key: 'signup' }));
@@ -46,6 +47,11 @@ const Login: React.FC = () => {
               saveJWTinLocalStorage(data.access_token);
               dispatch(hideDrawer());
               dispatch(loginUser());
+            },
+            onError: () => {
+              notification.error({
+                message: 'Unable to log you in right now!',
+              });
             },
           },
         );
