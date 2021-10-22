@@ -1,7 +1,7 @@
 import { IAuthState } from '../redux-features/auth';
-import { commonState } from '../redux-features/common';
+import { ICommonState } from '../redux-features/common';
 
 export interface IGlobalState {
-  common: commonState;
+  common: ICommonState;
   auth: IAuthState;
 }
