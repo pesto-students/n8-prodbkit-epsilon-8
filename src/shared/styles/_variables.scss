@@ -3,25 +3,3 @@
 $borderBlack: solid 1px $primary-text-color;
 $borderGreyPrimary: solid 1px $primary-border-color;
 $borderGreySecondary: solid 1px $secondary-border-color;
-
-.main-bar {
-  width: 100%;
-  padding: 0 1rem;
-  background-color: $primary-color;
-}
-
-.pageWrapper {
-  padding: 1rem 2rem;
-}
-
-.drawerFooterButtons {
-  position: absolute;
-  bottom: 0.5rem;
-  width: 100%;
-  height: 3rem;
-  margin-left: -1rem;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  padding: 1rem;
-}

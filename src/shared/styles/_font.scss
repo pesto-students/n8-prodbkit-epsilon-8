@@ -1,20 +1,17 @@
 // font-sizes
-$font8: 8px;
-$font10: 10px;
-$font12: 12px;
-$font14: 14px;
-$font16: 16px;
-$font18: 18px;
-$font20: 20px;
-$font22: 22px;
+$font-small: 10px;
+$font-normal: 14px;
+$font-medium: 16px;
+$font-large: 18px;
+$font-heading: 20px;
+$font-heading-large: 22px;
 
 // font weights
 $fontNormal: 400;
-$fontBold: 500;
-$fontBolder: 700;
-$fontExtraBold: 900;
+$fontBold: 600;
+$fontBolder: 800;
 
-@mixin font($fontSize, $color, $lineHeight: $font16, $fontWeight: $fontBold) {
+@mixin font($fontSize, $color, $lineHeight: $font-medium, $fontWeight: $fontBold) {
   font-size: $fontSize;
   color: $color;
   line-height: $lineHeight;

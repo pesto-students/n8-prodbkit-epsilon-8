@@ -1,7 +1,8 @@
+@import 'shared/styles/font';
+@import 'shared/styles/global';
+@import 'shared/styles/light-theme';
+@import 'shared/styles/mixins';
 @import 'shared/styles/variables';
-@import 'shared/styles//light-theme';
-@import 'shared/styles//font';
-@import 'shared/styles//mixins';
 
 .drawerBody {
   padding: 1rem;

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import memberReducer from 'pages/members/redux/members';
 import authReducer from 'redux-features/auth';
-import commonReducer from 'redux-features/common';
+import commonReducer from 'redux-features/commonDrawer';
 
 const store = configureStore({
   reducer: {

@@ -2,14 +2,14 @@ import { Form, Input, notification, Select, Space } from 'antd';
 import { updateMemberList } from 'pages/members/redux/members';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideDrawer } from 'redux-features/common';
+import { hideDrawer } from 'redux-features/commonDrawer';
 
 import AntDButton from '../../../../shared/components/atoms/button/Button';
 import Loader from '../../../../shared/components/atoms/loader/Loader';
 import { IGlobalState } from '../../../../shared/interfaces/globalState';
-import { IMemberInfo, IMemberPostData } from '../../member.interface';
+import { IMemberInfo } from '../../member.interface';
 import { createMember, getMember, updateMember } from '../../services/members.service';
-import { formatFormPostData, formatFormPutData } from './memberForm.helper';
+import { formatFormData } from './memberForm.helper';
 import styles from './memberForm.module.scss';
 const { Option } = Select;
 
@@ -18,7 +18,7 @@ const MemberForm: React.FC = () => {
   const commonStoreData = useSelector((state: IGlobalState) => state.common);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState<boolean>(false);
-  const isEditForm = commonStoreData.id;
+  // const isEditForm = commonStoreData.id;
   const selectedMemberId = commonStoreData.id;
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const MemberForm: React.FC = () => {
       email: '',
       role: null,
     });
-    if (selectedMemberId && isEditForm) {
+    if (!!selectedMemberId) {
       setLoading(true);
       getMember(selectedMemberId).then((res: IMemberInfo) => {
         const { data } = res;
@@ -55,7 +55,7 @@ const MemberForm: React.FC = () => {
   };
 
   const handleFormSave = () => {
-    if (isEditForm && selectedMemberId) {
+    if (!!selectedMemberId) {
       handleUpdateMember();
     } else {
       handleCreateMember();
@@ -63,26 +63,26 @@ const MemberForm: React.FC = () => {
   };
 
   const handleCreateMember = () => {
-    const formattedData = formatFormPostData(form.getFieldsValue()) as any;
+    const formattedData = formatFormData(form.getFieldsValue()) as any;
     createMember(formattedData).then((res: any) => {
-      if (res.status === 200) {
-        dispatch(updateMemberList(res.data));
-        successCallback('created');
-      } else {
+      if (res.status !== 200) {
         failureCallback();
+        return;
       }
+      dispatch(updateMemberList(res.data));
+      successCallback('created');
     });
   };
 
   const handleUpdateMember = () => {
-    const formattedData = formatFormPutData(form.getFieldsValue());
+    const formattedData = formatFormData(form.getFieldsValue());
     updateMember(selectedMemberId as string, formattedData).then((res: any) => {
-      if (res.status === 200) {
-        dispatch(updateMemberList(res.data));
-        successCallback('updated');
-      } else {
+      if (res.status !== 200) {
         failureCallback();
+        return;
       }
+      dispatch(updateMemberList(res.data));
+      successCallback('updated');
     });
   };
 

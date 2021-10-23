@@ -1,5 +1,4 @@
 import Login from 'pages/login';
-import DeleteMember from 'pages/members/organisms/deleteMember/DeleteMember';
 import MemberForm from 'pages/members/organisms/memberForm';
 import ViewMember from 'pages/members/organisms/viewMember/ViewMember';
 import Signup from 'pages/signup';
@@ -11,7 +10,6 @@ export const keyMap: Record<string, React.ReactNode> = {
   addMember: MemberForm,
   editMember: MemberForm,
   viewMember: ViewMember,
-  deleteMember: DeleteMember,
 };
 
 export const drawerNameMap: Record<string, string> = {
@@ -30,6 +28,5 @@ export const drawerNameMap: Record<string, string> = {
 };
 
 export const modalTitleMap: Record<string, string> = {
-  deleteMember: 'Delete member',
   deleteTeam: 'Delete Team',
 };

@@ -1,8 +1,8 @@
 @import 'shared/styles/font';
+@import 'shared/styles/mixins';
 
 .headerWrapper {
-  display: flex;
-  justify-content: space-between;
+  @include flex(center, space-between);
   margin-bottom: 1.5rem;
 }
 

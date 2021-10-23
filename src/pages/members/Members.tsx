@@ -16,7 +16,7 @@ import { useParams } from 'react-router';
 import Header from 'shared/components/atoms/header/Header';
 import { getUrlById } from 'shared/utils/api';
 
-import { showDrawer } from '../../redux-features/common';
+import { showDrawer } from '../../redux-features/commonDrawer';
 import styles from './members.module.scss';
 import { updateMemberList } from './redux/members';
 import { removeMember } from './services/members.service';

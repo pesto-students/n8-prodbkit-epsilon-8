@@ -2,7 +2,7 @@ import { Button, Divider, Form, Input } from 'antd';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { showDrawer } from '../../redux-features/common';
+import { showDrawer } from '../../redux-features/commonDrawer';
 import styles from './signup.module.scss';
 
 const Signup: React.FC = () => {

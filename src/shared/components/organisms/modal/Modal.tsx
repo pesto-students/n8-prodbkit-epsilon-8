@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideModal } from 'redux-features/common';
+import { hideModal } from 'redux-features/commonDrawer';
 import { IGlobalState } from 'shared/interfaces/globalState';
 
 import styles from './modal.module.scss';
@@ -26,7 +26,7 @@ const AntDModal: React.FC = () => {
       onCancel={handleCancel}
       okButtonProps={{ className: `${styles.okBtn}` }}
     >
-      <p>{commonData.modalText}</p>
+      <p className={styles.modaltext}>{commonData.modalText}</p>
     </Modal>
   );
 };

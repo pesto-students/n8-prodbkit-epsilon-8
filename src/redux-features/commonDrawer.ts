@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { modalTitleMap } from 'shared/constants';
+import { modalTitleMap } from 'shared/components/organisms/drawer/drawer.constants';
 
 export interface ICommonState {
   isDrawerVisible: boolean;
@@ -21,7 +21,7 @@ const initialState = {
   modalText: '',
 } as ICommonState;
 
-const commonSlice = createSlice({
+const commonDrawerSlice = createSlice({
   name: 'common',
   initialState,
   reducers: {
@@ -53,5 +53,5 @@ const commonSlice = createSlice({
   },
 });
 
-export const { showDrawer, hideDrawer, showModal, hideModal } = commonSlice.actions;
-export default commonSlice.reducer;
+export const { showDrawer, hideDrawer, showModal, hideModal } = commonDrawerSlice.actions;
+export default commonDrawerSlice.reducer;

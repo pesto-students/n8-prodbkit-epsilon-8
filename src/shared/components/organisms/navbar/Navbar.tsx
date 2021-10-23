@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { logoutUser } from 'redux-features/auth';
-import { showDrawer } from 'redux-features/common';
+import { showDrawer } from 'redux-features/commonDrawer';
 import { routes } from 'routes';
 import UserAvatar from 'shared/components/atoms/avatar/Avatar';
 import { IGlobalState } from 'shared/interfaces/globalState';
@@ -25,12 +25,8 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
   const globalAuthData = useSelector((globalState: IGlobalState) => globalState.auth);
   // const [activeLink, setActiveLink] = useState(navbarItemList[0]?.name);
 
-  const handleButtonClick = () => {
-    if (isUserLoggedin) {
-      handleUserLogout();
-    } else {
-      dispatch(showDrawer({ key: 'login' }));
-    }
+  const handleUserLogin = () => {
+    dispatch(showDrawer({ key: 'login' }));
   };
 
   const handleUserLogout = () => {
@@ -39,7 +35,7 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
     history.push(routes.home);
   };
 
-  const navbarItemView = (navItem: INavbarItem, index: number) => {
+  const getNavbarItemView = (navItem: INavbarItem, index: number) => {
     return (
       <li key={index}>
         <Link to={navItem.url}>{navItem.name}</Link>
@@ -87,7 +83,7 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
     <div className={cn(styles.navbarWrapper, styles.flexWrapper)}>
       <div className={styles.logo}></div>
       <div className={styles.navItems}>
-        <ul className={styles.navList}>{navbarItemList.map(navbarItemView)}</ul>
+        <ul className={styles.navList}>{navbarItemList.map(getNavbarItemView)}</ul>
       </div>
       {isUserLoggedin ? (
         <Space className={styles.settingAndLoginWrapper} direction="horizontal" size={16}>
@@ -96,14 +92,14 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
             className={styles.btnLink}
             type="link"
             icon={<LogoutOutlined />}
-            onClick={handleButtonClick}
+            onClick={handleUserLogout}
           >
             Logout
           </Button>
         </Space>
       ) : (
         <div className={styles.settingAndLoginWrapper}>
-          <Button className={styles.btnLink} type="link" onClick={handleButtonClick}>
+          <Button className={styles.btnLink} type="link" onClick={handleUserLogin}>
             Login
           </Button>
         </div>

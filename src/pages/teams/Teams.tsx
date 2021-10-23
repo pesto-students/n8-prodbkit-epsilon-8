@@ -8,7 +8,7 @@ import {
 import { notification, Space, Table, Tag } from 'antd';
 import confirm from 'antd/lib/modal/confirm';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
@@ -16,7 +16,7 @@ import { useHistory } from 'react-router';
 import Header from 'shared/components/atoms/header/Header';
 import { getURL } from 'shared/utils/api';
 
-import { showDrawer } from '../../redux-features/common';
+import { showDrawer } from '../../redux-features/commonDrawer';
 import { updateTeamList } from './redux/teams';
 import { removeTeam } from './services/teams.service';
 import styles from './teams.module.scss';

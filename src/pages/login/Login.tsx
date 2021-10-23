@@ -7,7 +7,7 @@ import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { loginUser } from 'redux-features/auth';
-import { hideDrawer, showDrawer } from 'redux-features/common';
+import { hideDrawer, showDrawer } from 'redux-features/commonDrawer';
 import { getURL } from 'shared/utils/api';
 
 import styles from './login.module.scss';
@@ -71,7 +71,7 @@ const Login: React.FC = () => {
         <Input placeholder="Enter your email id" size="large" />
       </Form.Item>
       <Form.Item name="password" label="Password" rules={[{ required: true }]}>
-        <Input placeholder="Enter your password" size="large" />
+        <Input.Password placeholder="Enter your password" size="large" />
       </Form.Item>
       <Form.Item>
         <Button type="primary" size="large" htmlType="submit" className={styles.formBtn}>

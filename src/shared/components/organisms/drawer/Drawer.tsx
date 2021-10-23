@@ -3,8 +3,8 @@ import { Drawer } from 'antd';
 import cn from 'classnames';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { hideDrawer } from 'redux-features/common';
-import { drawerNameMap, keyMap } from 'shared/constants';
+import { hideDrawer } from 'redux-features/commonDrawer';
+import { drawerNameMap, keyMap } from 'shared/components/organisms/drawer/drawer.constants';
 import { IGlobalState } from 'shared/interfaces/globalState';
 
 import styles from './drawer.module.scss';

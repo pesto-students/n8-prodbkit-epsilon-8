@@ -1,6 +1,6 @@
 import { IMemberState } from 'pages/members/member.interface';
 import { IAuthState } from 'redux-features/auth';
-import { ICommonState } from 'redux-features/common';
+import { ICommonState } from 'redux-features/commonDrawer';
 
 export interface IGlobalState {
   common: ICommonState;
