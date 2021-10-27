@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideDrawer } from 'redux-features/commonDrawer';
+import { EnvironmentOptions, ModeOptions, PlatformOptions, RoleOptions } from 'shared/constants';
 
 import AntDButton from '../../../../shared/components/atoms/button/Button';
 import Loader from '../../../../shared/components/atoms/loader/Loader';
@@ -146,33 +147,41 @@ const DatabaseForm: React.FC = () => {
 
       <Form.Item name="platform" label="Platform" rules={[{ required: true }]}>
         <Select placeholder="Select a platform" allowClear disabled={isReadOnly}>
-          <Option value="admin">Admin</Option>
-          <Option value="manager">Manager</Option>
-          <Option value="other">Others</Option>
+          {PlatformOptions.map((item: Record<string, string>, index: number) => (
+            <Option key={`env${index}`} value={item.value}>
+              {item.key}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
 
       <Form.Item name="environment" label="Environment" rules={[{ required: true }]}>
         <Select placeholder="Select an environment" disabled={isReadOnly} allowClear>
-          <Option value="admin">Production</Option>
-          <Option value="manager">Staging</Option>
-          <Option value="other">Development</Option>
+          {EnvironmentOptions.map((item: Record<string, string>, index: number) => (
+            <Option key={`env${index}`} value={item.value}>
+              {item.key}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
 
       <Form.Item name="mode" label="Mode" rules={[{ required: true }]}>
         <Select placeholder="Select a mode" disabled={isReadOnly} allowClear>
-          <Option value="admin">Admin</Option>
-          <Option value="manager">Manager</Option>
-          <Option value="other">Others</Option>
+          {ModeOptions.map((item: Record<string, string>, index: number) => (
+            <Option key={`mode${index}`} value={item.value}>
+              {item.key}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
 
       <Form.Item name="access" label="Access level" rules={[{ required: true }]}>
         <Select placeholder="Select access level" disabled={isReadOnly} allowClear>
-          <Option value="admin">Admin</Option>
-          <Option value="manager">Manager</Option>
-          <Option value="other">Others</Option>
+          {RoleOptions.map((roleItem: Record<string, string>, index: number) => (
+            <Option key={`role${index}`} value={roleItem.value}>
+              {roleItem.key}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
       {!isReadOnly && (

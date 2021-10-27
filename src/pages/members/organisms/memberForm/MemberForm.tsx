@@ -2,8 +2,8 @@ import { Form, Input, notification, Select, Space } from 'antd';
 import React, { useEffect } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
 import { hideDrawer } from 'redux-features/commonDrawer';
+import { RoleOptions } from 'shared/constants';
 
 import AntDButton from '../../../../shared/components/atoms/button/Button';
 import { IGlobalState } from '../../../../shared/interfaces/globalState';
@@ -112,9 +112,11 @@ const MemberForm: React.FC = () => {
 
       <Form.Item name="role" label="Role" rules={[{ required: true }]}>
         <Select placeholder="Select a role" allowClear>
-          <Option value="ADMIN">Admin</Option>
-          <Option value="TL">Team Lead</Option>
-          <Option value="DEV">Developer</Option>
+          {RoleOptions.map((roleItem: Record<string, string>, index: number) => (
+            <Option key={`role${index}`} value={roleItem.value}>
+              {roleItem.key}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
       <div className={styles.formFooterButtons}>
