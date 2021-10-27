@@ -1,0 +1,6 @@
+@import 'shared/styles/variables';
+@import 'shared/styles/global';
+
+.formFooterButtons {
+  @extend .drawerFooterButtons;
+}

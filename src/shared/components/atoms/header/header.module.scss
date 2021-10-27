@@ -9,3 +9,11 @@
 .title {
   font-weight: $fontBold;
 }
+
+.searchWrapper {
+  display: inline-flex;
+}
+
+.searchInput {
+  width: 20rem;
+}

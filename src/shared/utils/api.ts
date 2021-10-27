@@ -1,4 +1,4 @@
-export const getURL = (endpoint: string, id?: string) => {
+export const getURL = (endpoint: string) => {
   return `${process.env.REACT_APP_BASE_URL}${endpoint}`;
 };
 

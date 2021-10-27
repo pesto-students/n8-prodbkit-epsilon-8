@@ -14,12 +14,14 @@ import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import Header from 'shared/components/atoms/header/Header';
+import CommonHelmet from 'shared/components/atoms/helmet/Helmet';
+import CommonTable from 'shared/components/organisms/table/Table';
 import { getUrlById } from 'shared/utils/api';
 
 import { showDrawer } from '../../redux-features/commonDrawer';
 import styles from './members.module.scss';
 import { updateMemberList } from './redux/members';
-import { removeMember } from './services/members.service';
+import { fetchMemberList, removeMember } from './services/members.service';
 
 const PAGE_TITLE = 'Members';
 
@@ -27,18 +29,11 @@ const Members: React.FC = () => {
   const dispatch = useDispatch();
   const { id }: any = useParams();
   const memberAPIResponse = useQuery(`member${id}`, () => fetchMemberList(id));
+
   const { data } = memberAPIResponse;
 
-  const fetchMemberList = (id: string) => {
-    return axios.get(getUrlById('/member', id), {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      },
-    });
-  };
-
   const handleViewMember = (id: string) => {
-    dispatch(showDrawer({ key: 'viewMember', id: id }));
+    dispatch(showDrawer({ key: 'memberForm', id: id }));
   };
 
   const handleEditMember = (id: string) => {
@@ -46,18 +41,18 @@ const Members: React.FC = () => {
   };
 
   const deleteMember = (id: string) => {
-    removeMember(id).then((res: any) => {
-      if (res.status === 204) {
-        dispatch(updateMemberList(res.data));
-        notification.success({
-          message: 'Member successfully deleted.',
-        });
-      } else {
-        notification.error({
-          message: "Couldn't delete this member. Please try again.",
-        });
-      }
-    });
+    // removeMember(id).then((res: any) => {
+    //   if (res.status === 204) {
+    //     dispatch(updateMemberList(res.data));
+    //     notification.success({
+    //       message: 'Member successfully deleted.',
+    //     });
+    //   } else {
+    //     notification.error({
+    //       message: "Couldn't delete this member. Please try again.",
+    //     });
+    //   }
+    // });
   };
 
   const handleDeleteMember = (id: string, email: string) => {
@@ -101,7 +96,7 @@ const Members: React.FC = () => {
       render: (text: string, record: any) => (
         <Space size={8}>
           <InfoCircleOutlined onClick={() => handleViewMember(record.id)} />
-          <EditOutlined onClick={() => handleEditMember(record.id)} />
+          {/* <EditOutlined onClick={() => handleEditMember(record.id)} /> */}
           <DeleteOutlined onClick={() => handleDeleteMember(record.id, record.email)} />
         </Space>
       ),
@@ -109,22 +104,24 @@ const Members: React.FC = () => {
   ];
 
   const handleAddMember = () => {
-    dispatch(showDrawer({ key: 'addMember' }));
+    dispatch(showDrawer({ key: 'addMember', urlId: id }));
   };
 
   return (
     <div className={styles.memberWrapper}>
-      <Helmet>
-        <meta name="Pro-DB Kit" content="Ninja 8 demo app" charSet="utf-8" />
-        <title>{PAGE_TITLE}</title>
-      </Helmet>
+      <CommonHelmet title={PAGE_TITLE} />
       <Header
         title={PAGE_TITLE}
         buttonText="Add Member"
         buttonCallback={handleAddMember}
+        showSearchInput
         buttonIcon={<PlusOutlined />}
       />
-      <Table columns={columns} loading={memberAPIResponse.isLoading} dataSource={data?.data} />
+      <CommonTable
+        columns={columns}
+        loading={memberAPIResponse.isLoading}
+        dataSource={data?.data}
+      />
     </div>
   );
 };

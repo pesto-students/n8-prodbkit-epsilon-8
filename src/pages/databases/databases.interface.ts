@@ -11,7 +11,7 @@ export interface IDatabase {
   data: IDatabaseData[];
 }
 
-export interface IDBInfo {
+export interface IDatabaseInfo {
   data: IDatabaseData;
 }
 

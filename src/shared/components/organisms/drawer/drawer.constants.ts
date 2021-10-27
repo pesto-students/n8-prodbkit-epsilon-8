@@ -1,7 +1,8 @@
+import databaseForm from 'pages/databases/organisms/databaseForm';
 import Login from 'pages/login';
 import MemberForm from 'pages/members/organisms/memberForm';
-import ViewMember from 'pages/members/organisms/viewMember/ViewMember';
 import Signup from 'pages/signup';
+import teamForm from 'pages/teams/organisms/teamForm';
 
 export const keyMap: Record<string, React.ReactNode> = {
   login: Login,
@@ -9,7 +10,17 @@ export const keyMap: Record<string, React.ReactNode> = {
 
   addMember: MemberForm,
   editMember: MemberForm,
-  viewMember: ViewMember,
+  viewMember: MemberForm,
+
+  addTeam: teamForm,
+  viewTeam: teamForm,
+  editTeam: teamForm,
+
+  // addTeam:
+
+  addDatabase: databaseForm,
+  viewDatabase: databaseForm,
+  editDatabase: databaseForm,
 };
 
 export const drawerNameMap: Record<string, string> = {
@@ -21,8 +32,12 @@ export const drawerNameMap: Record<string, string> = {
   editMember: 'Edit Member',
 
   addTeam: 'Add Team',
+  editTeam: 'Edit Team',
+  viewTeam: 'View Team Details',
 
   addDatabase: 'Add Database',
+  viewDatabase: 'View Database details',
+  editDatabase: 'Edit Database details',
 
   addCredentials: 'Add Credentials',
 };

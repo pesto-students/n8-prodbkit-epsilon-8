@@ -1,22 +1,38 @@
-import { http } from '../../../http';
-import { ITeamPostData, ITeamPutData } from '../teams.interface';
+import axios from 'axios';
+import { getURL, getUrlById } from 'shared/utils/api';
 
-export const getAllTeams = () => {
-  return http.get('/teams');
+export const fetchTeamsList = () => {
+  return axios.get(getURL('/team'), {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      'Content-Type': 'application/json',
+    },
+  });
 };
 
-export const getTeam = (id: string) => {
-  return http.get(`/teams/${id}`);
+export const handleTeamDelete = (id: string) => {
+  return axios.delete(getUrlById('/team', id), {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      'Content-Type': 'application/json',
+    },
+  });
 };
 
-export const createTeam = (data: ITeamPostData) => {
-  return http.post('/team', data);
+export const handleTeamSubmit = (formObject: any) => {
+  return axios.post(getURL('/team'), formObject, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      'Content-Type': 'application/json',
+    },
+  });
 };
 
-export const updateTeam = (id: string, data: ITeamPutData) => {
-  return http.put(`/team/${id}`, data);
-};
-
-export const removeTeam = (id: string) => {
-  return http.delete(`/team/${id}`);
+export const handleTeamUpdate = (formObject: Record<string, any>) => {
+  return axios.put(getUrlById('/team', formObject.id), formObject.data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+      'Content-Type': 'application/json',
+    },
+  });
 };

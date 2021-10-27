@@ -5,6 +5,8 @@ export interface ICommonState {
   isDrawerVisible: boolean;
   drawerTitle: string;
   id: string | undefined;
+  isDrawerFormReadOnly: boolean;
+  urlId: string;
 
   isModalVisible: boolean;
   modalTitle: string;
@@ -15,6 +17,8 @@ const initialState = {
   isDrawerVisible: false,
   drawerTitle: '',
   id: undefined,
+  isDrawerFormReadOnly: false,
+  urlId: '',
 
   isModalVisible: false,
   modalTitle: '',
@@ -25,10 +29,12 @@ const commonDrawerSlice = createSlice({
   name: 'common',
   initialState,
   reducers: {
-    showDrawer: (state, { payload }: { payload: Record<string, string> }) => {
+    showDrawer: (state, { payload }: { payload: Record<string, any> }) => {
       state.isDrawerVisible = true;
       state.drawerTitle = payload.key;
       state.id = payload.id;
+      state.isDrawerFormReadOnly = payload.isReadOnly;
+      state.urlId = payload.urlId;
       return state;
     },
     hideDrawer: (state) => {
