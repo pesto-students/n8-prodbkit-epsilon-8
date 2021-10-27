@@ -32,6 +32,10 @@ const Login: React.FC = () => {
     // setCookie('jwt_token', 'bearer ' + token);
   };
 
+  const getClientID = (): string => {
+    return process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
+  };
+
   const responseGoogle = async (response: any) => {
     if (response && response.tokenId) {
       const { tokenId } = response;
@@ -81,7 +85,7 @@ const Login: React.FC = () => {
       <Divider plain>OR</Divider>
       <Form.Item>
         <GoogleLogin
-          clientId="496210587745-q8pu8dgibkk4s69jg73191a6rbe7ejot.apps.googleusercontent.com"
+          clientId={getClientID()}
           className={styles.googleLoginBtn}
           onSuccess={responseGoogle}
           onFailure={responseGoogle}

@@ -48,7 +48,7 @@ const MemberForm: React.FC = () => {
     });
   };
 
-  const failureCallback = () => {
+  const handleFailedToSave = () => {
     notification.error({
       message: 'Something went wrong. Please try again',
     });
@@ -66,7 +66,7 @@ const MemberForm: React.FC = () => {
     const formattedData = formatFormData(form.getFieldsValue()) as any;
     createMember(formattedData).then((res: any) => {
       if (res.status !== 200) {
-        failureCallback();
+        handleFailedToSave();
         return;
       }
       dispatch(updateMemberList(res.data));
@@ -78,7 +78,7 @@ const MemberForm: React.FC = () => {
     const formattedData = formatFormData(form.getFieldsValue());
     updateMember(selectedMemberId as string, formattedData).then((res: any) => {
       if (res.status !== 200) {
-        failureCallback();
+        handleFailedToSave();
         return;
       }
       dispatch(updateMemberList(res.data));
