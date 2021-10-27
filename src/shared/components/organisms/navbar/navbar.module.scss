@@ -1,6 +1,8 @@
-@import '../../../styles/colors';
-@import '../../../styles/global';
-@import '../../../styles/mixins';
+@import 'shared/styles/font';
+@import 'shared/styles/global';
+@import 'shared/styles/light-theme';
+@import 'shared/styles/mixins';
+@import 'shared/styles/variables';
 
 .navbarWrapper {
   @extend .main-bar;
@@ -23,17 +25,24 @@
 }
 
 .navList {
-  display: flex;
+  @include flex(center, flex-start);
   list-style: none;
   margin: 0;
+  padding: 0;
+
+  & li a {
+    color: $secondary-text-color;
+    padding: 1rem;
+    font-weight: 500;
+
+    &:hover {
+      color: $secondary-border-color;
+    }
+  }
 }
 
-.navListItem {
-  color: $white;
-  padding: 1rem;
-  font-weight: 500;
-
-  &:hover {
-    color: $grey-secondary;
-  }
+.settingAndLoginWrapper {
+  @include flex(center, flex-start);
+  font-size: $font-medium;
+  color: $secondary-text-color;
 }

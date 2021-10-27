@@ -1,0 +1,17 @@
+@import 'shared/styles/mixins';
+
+.header {
+  @include flex();
+}
+
+.headerButton {
+  width: 9rem;
+}
+
+.headerTitle {
+  width: 8rem;
+}
+
+.body {
+  margin: 2rem 0 0 0;
+}

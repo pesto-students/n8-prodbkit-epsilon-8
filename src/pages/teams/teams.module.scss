@@ -1,0 +1,6 @@
+@import 'shared/styles/global';
+@import 'shared/styles/variables';
+
+.teamWrapper {
+  @extend .pageWrapper;
+}

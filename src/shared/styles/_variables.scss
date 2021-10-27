@@ -1,4 +1,4 @@
-@import './colors';
+@import './light-theme';
 
-$borderPrimary: solid 1px $black;
-$borderSecondary: solid 1px $grey-primary;
+$borderPrimary: solid 1px $primary-text-color;
+$borderSecondary: solid 1px $secondary-border-color;

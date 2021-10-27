@@ -18,11 +18,17 @@
     "antd": "^4.16.13",
     "axios": "^0.21.4",
     "classnames": "^2.3.1",
+    "dotenv": "^10.0.0",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "react": "^17.0.2",
+    "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
+    "react-google-login": "^5.2.2",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.16.1",
     "react-query": "^3.24.4",
     "react-redux": "^7.2.5",
     "react-router": "^5.2.1",
@@ -36,7 +42,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint"
+    "lint": "eslint ./src --fix"
   },
   "browserslist": {
     "production": [
@@ -57,7 +63,7 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint",
+      "eslint --fix",
       "pretty-quick — staged",
       "git add"
     ]
@@ -69,6 +75,7 @@
     "@types/react-router-dom": "^5.3.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
+    "axios-mock-adapter": "^1.20.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",

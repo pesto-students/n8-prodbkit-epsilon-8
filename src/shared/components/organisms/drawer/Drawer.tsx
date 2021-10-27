@@ -1,16 +1,17 @@
+import { CloseOutlined } from '@ant-design/icons';
 import { Drawer } from 'antd';
 import cn from 'classnames';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { hideDrawer } from 'redux-features/commonDrawer';
+import { drawerNameMap, keyMap } from 'shared/components/organisms/drawer/drawer.constants';
+import { IGlobalState } from 'shared/interfaces/globalState';
 
-import { IGlobalState } from '../../../../interfaces/globalState';
-import { hideDrawer } from '../../../../redux-features/common';
-import { drawerNameMap, keyMap } from '../../../constants';
 import styles from './drawer.module.scss';
 
-const CustomDrawer: React.FC = (props) => {
+const AntDDrawer: React.FC = (props) => {
   const dispatch = useDispatch();
-  const commonData = useSelector((state: IGlobalState) => state.common);
+  const commonStoreData = useSelector((state: IGlobalState) => state.common);
 
   const onCloseDrawer = () => {
     dispatch(hideDrawer());
@@ -19,17 +20,17 @@ const CustomDrawer: React.FC = (props) => {
   const renderDrawerHeader = () => {
     return (
       <div className={cn(styles.drawerHeader, styles.headerText)}>
-        {drawerNameMap[commonData.drawerKey]}
+        {drawerNameMap[commonStoreData.drawerTitle]}
       </div>
     );
   };
 
   const getDrawerContentFromKey = () => {
-    if (commonData.drawerKey === '') {
-      return null;
+    if (commonStoreData.drawerTitle === '') {
+      return <></>;
     }
     const DrawerRenderComponent = (keyMap as Record<string, React.FC>)[
-      commonData.drawerKey as string
+      commonStoreData.drawerTitle as string
     ];
     return <DrawerRenderComponent />;
   };
@@ -38,7 +39,7 @@ const CustomDrawer: React.FC = (props) => {
     return (
       <>
         {renderDrawerHeader()}
-        {getDrawerContentFromKey()}
+        <div className={styles.drawerBody}>{getDrawerContentFromKey()}</div>
       </>
     );
   };
@@ -46,15 +47,15 @@ const CustomDrawer: React.FC = (props) => {
   return (
     <Drawer
       {...props}
-      className={styles.drawer}
-      visible={commonData.isDrawerVisible}
+      visible={commonStoreData.isDrawerVisible}
       bodyStyle={{ padding: 0 }}
       onClose={onCloseDrawer}
       width={400}
+      closeIcon={<CloseOutlined className={styles.closeIcon} />}
     >
       <DrawerBody />
     </Drawer>
   );
 };
 
-export default CustomDrawer;
+export default AntDDrawer;

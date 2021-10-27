@@ -1,0 +1,11 @@
+@import 'shared/styles/font';
+@import 'shared/styles/mixins';
+
+.headerWrapper {
+  @include flex(center, space-between);
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-weight: $fontBold;
+}

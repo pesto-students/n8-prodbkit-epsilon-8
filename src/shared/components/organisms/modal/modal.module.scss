@@ -1,0 +1,7 @@
+@import 'shared/styles/light-theme';
+
+.okBtn,
+.okBtn:hover,
+.okBtn:focus {
+  background-color: $primary-color;
+}

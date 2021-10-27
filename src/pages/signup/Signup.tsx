@@ -2,22 +2,19 @@ import { Button, Divider, Form, Input } from 'antd';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { showDrawer } from '../../redux-features/common';
+import { showDrawer } from '../../redux-features/commonDrawer';
 import styles from './signup.module.scss';
 
 const Signup: React.FC = () => {
   const dispatch = useDispatch();
 
   const navigateToLogin = () => {
-    dispatch(showDrawer('login'));
+    dispatch(showDrawer({ key: 'login' }));
   };
 
   return (
     <div className={styles.loginWrapper}>
-      <Form
-        layout="vertical"
-        // form={form}
-      >
+      <Form layout="vertical">
         <Form.Item label="Email id">
           <Input placeholder="Enter your email id" size="large" />
         </Form.Item>

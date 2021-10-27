@@ -1,0 +1,15 @@
+@import 'shared/styles/font';
+@import 'shared/styles/light-theme';
+
+.label {
+  font-size: $font-normal;
+  font-weight: $fontBold;
+}
+
+.labelDark {
+  color: $primary-text-color;
+}
+
+.labelLight {
+  color: $secondary-text-color;
+}

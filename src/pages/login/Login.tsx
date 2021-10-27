@@ -1,51 +1,104 @@
-import { Button, Divider, Form, Input } from 'antd';
-import React from 'react';
+import { Button, Divider, Form, Input, notification } from 'antd';
+import axios from 'axios';
+import React, { useState } from 'react';
+// import { useCookies } from 'react-cookie';
+import { GoogleLogin } from 'react-google-login';
+import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { loginUser } from 'redux-features/auth';
+import { hideDrawer, showDrawer } from 'redux-features/commonDrawer';
+import { getURL } from 'shared/utils/api';
 
-import { showDrawer } from '../../redux-features/common';
 import styles from './login.module.scss';
 
 const Login: React.FC = () => {
+  const [tokenId, setTokenID] = useState<string>('');
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const history = useHistory();
+  // const [cookies, setCookie, removeCookie] = useCookies(['jwt_token']);
+
+  const loginPostInfo = useMutation((token: any) => axios.post(getURL('/auth/login'), token), {
+    retry: false,
+  });
 
   const navigateToSignup = () => {
-    // e.preventDefault();
-    dispatch(showDrawer('signup'));
+    dispatch(showDrawer({ key: 'signup' }));
+  };
+
+  const saveJWTinLocalStorage = (token: string) => {
+    localStorage.setItem('jwt_token', token);
+    // setCookie('jwt_token', 'bearer ' + token);
+  };
+
+  const getClientID = (): string => {
+    return process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
+  };
+
+  const responseGoogle = async (response: any) => {
+    if (response && response.tokenId) {
+      const { tokenId } = response;
+      setTokenID(tokenId);
+
+      try {
+        await loginPostInfo.mutate(
+          {
+            id_token: tokenId,
+          },
+          {
+            onSuccess: ({ data }) => {
+              saveJWTinLocalStorage(data.access_token);
+              dispatch(hideDrawer());
+              dispatch(loginUser());
+            },
+            onError: () => {
+              notification.error({
+                message: 'Unable to log you in right now!',
+              });
+            },
+          },
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      notification.error({
+        message: 'Unable to log you in right now!',
+      });
+    }
   };
 
   return (
-    <div className={styles.loginWrapper}>
-      <Form
-        layout="vertical"
-        // form={form}
-        // onValuesChange={onFormLayoutChange}
-      >
-        <Form.Item label="Email id">
-          <Input placeholder="Enter your email id" size="large" />
-        </Form.Item>
-        <Form.Item label="Password">
-          <Input placeholder="Enter your password" size="large" />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" size="large" className={styles.formBtn}>
-            Submit
-          </Button>
-        </Form.Item>
-        <Divider plain>OR</Divider>
-        <Form.Item>
-          <Button type="primary" size="large" className={styles.formBtn}>
-            Login via google
-          </Button>
-        </Form.Item>
-        <Divider orientation="right" plain>
-          {"Don't have an account?"}
-          <Button type="link" onClick={navigateToSignup}>
-            Signup
-          </Button>
-          here.
-        </Divider>
-      </Form>
-    </div>
+    <Form layout="vertical" form={form}>
+      <Form.Item name="email" label="Email id" rules={[{ required: true, type: 'email' }]}>
+        <Input placeholder="Enter your email id" size="large" />
+      </Form.Item>
+      <Form.Item name="password" label="Password" rules={[{ required: true }]}>
+        <Input.Password placeholder="Enter your password" size="large" />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" size="large" htmlType="submit" className={styles.formBtn}>
+          Submit
+        </Button>
+      </Form.Item>
+      <Divider plain>OR</Divider>
+      <Form.Item>
+        <GoogleLogin
+          clientId={getClientID()}
+          className={styles.googleLoginBtn}
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+        />
+      </Form.Item>
+      <Divider orientation="right" plain>
+        {"Don't have an account?"}
+        <Button type="link" onClick={navigateToSignup}>
+          Signup
+        </Button>
+        here.
+      </Divider>
+    </Form>
   );
 };
 

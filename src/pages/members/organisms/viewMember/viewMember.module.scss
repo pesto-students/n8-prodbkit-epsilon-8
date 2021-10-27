@@ -1,0 +1,13 @@
+@import 'shared/styles/font';
+@import 'shared/styles/mixins';
+
+.label {
+  font-weight: $fontBolder;
+}
+
+.values {
+}
+
+.viewWrapper {
+  width: 100%;
+}

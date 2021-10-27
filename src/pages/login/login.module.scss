@@ -1,10 +1,12 @@
-@import '../../shared/styles/colors';
-
-.loginWrapper {
-  padding: 1rem;
-}
+@import 'shared/styles/light-theme';
 
 .formBtn {
   width: 100%;
-  background-color: $blue-primary !important;
+  background-color: $primary-color;
+}
+
+.googleLoginBtn {
+  width: 100%;
+  justify-content: center;
+  opacity: 1;
 }

@@ -1,0 +1,44 @@
+{
+  "teams": [
+    {
+      "id": "1",
+      "name": "Team01",
+      "databases": "DB01,DB02,DB03",
+      "members": "saurav04, raju07",
+      "createdAt": "02 Jan 2020",
+      "updatedAt": "24 Mar 2021",
+      "deletedAt": "null",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "name": "Team02",
+      "databases": "DB01,DB02",
+      "members": "raju07, saurav04",
+      "createdAt": "02 Jan 2020",
+      "updatedAt": "24 Mar 2021",
+      "deletedAt": "null",
+      "role": "admin"
+    },
+    {
+      "id": "3",
+      "name": "Team03",
+      "databases": "DB01",
+      "members": "abhishek04",
+      "createdAt": "02 Jan 2020",
+      "updatedAt": "24 Mar 2021",
+      "deletedAt": "null",
+      "role": "admin"
+    },
+    {
+      "id": "4",
+      "name": "Team04",
+      "databases": "DB01,DB02,DB03",
+      "members": "saurav04, abhishek04",
+      "createdAt": "02 Jan 2020",
+      "updatedAt": "24 Mar 2021",
+      "deletedAt": "null",
+      "role": "admin"
+    }
+  ]
+}
