@@ -4,3 +4,7 @@
 .dashboardWrapper {
   @extend .pageWrapper;
 }
+
+:export {
+  primaryColor: $blue-primary;
+}

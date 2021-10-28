@@ -17,7 +17,7 @@ import styles from './dashboard.module.scss';
 const PAGE_TITLE = 'Dashboard';
 
 const fetchDashboardStats = () => {
-  return axios.get(getURL('/dashboard-stats'), {
+  return axios.get(getURL('/auth/dashboard-stats'), {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
       'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ const Teams: React.FC = () => {
   const dashboardStatsAPIResponse = useQuery('dashboard-stats', fetchDashboardStats);
   const { data } = dashboardStatsAPIResponse;
 
-  function transformDataForBarChart(teamStats: IDashboardStatsTeamData[]) {
+  function transformDataForBarChart(teamStats: IDashboardStatsTeamData[] = []) {
     return teamStats.map(
       ({ name, members }: IDashboardStatsTeamData): { team: string; members: number } => ({
         team: name,
@@ -38,8 +38,8 @@ const Teams: React.FC = () => {
     );
   }
 
-  function transformDataForPolarChart(teamStats: IDashboardStatsDatabaseData[]) {
-    return teamStats.map(
+  function transformDataForPolarChart(databaseStats: IDashboardStatsDatabaseData[] = []) {
+    return databaseStats.map(
       ({ name, teams }: IDashboardStatsDatabaseData): { x: string; y: number } => ({
         x: name,
         y: teams,
@@ -47,17 +47,17 @@ const Teams: React.FC = () => {
     );
   }
 
-  function transformDataForLineChart(teamStats: IDashboardStatsOnboardedTeamData[]) {
-    return teamStats.map(
-      ({ month, teams }: IDashboardStatsOnboardedTeamData): { x: string; y: number } => ({
+  function transformDataForLineChart(onboardedTeamStats: IDashboardStatsOnboardedTeamData[] = []) {
+    return onboardedTeamStats.map(
+      ({ month, teamCount }: IDashboardStatsOnboardedTeamData): { x: string; y: number } => ({
         x: month,
-        y: teams,
+        y: teamCount,
       }),
     );
   }
 
   return (
-    <div className={styles.teamWrapper}>
+    <div className={styles.dashboardWrapper}>
       <Helmet>
         <meta name="Pro-DB Kit" content="Ninja 8 demo app" charSet="utf-8" />
         <title>{PAGE_TITLE}</title>
@@ -75,7 +75,7 @@ const Teams: React.FC = () => {
           <Card
             title="Teams and database count"
             bordered={false}
-            // loading={dashboardStatsAPIResponse.isLoading}
+            loading={dashboardStatsAPIResponse.isLoading}
           >
             <VictoryChart
               polar
@@ -93,17 +93,12 @@ const Teams: React.FC = () => {
                   duration: 2000,
                   onLoad: { duration: 1000 },
                 }}
-                style={{ data: { fill: '#26519e', width: 40 } }}
-                // data={data?.data?.stats?.databases.length ? transformDataForPolarChart(data.data.stats.databases) : []}
-                data={[
-                  { x: 'Infra', y: 3 },
-                  { x: 'API', y: 2 },
-                  { x: 'Dev Rel', y: 1 },
-                  { x: 'Txns', y: 3 },
-                  { x: 'Dashboard', y: 1 },
-                  { x: 'ITG', y: 2 },
-                  { x: 'BI', y: 2 },
-                ]}
+                style={{ data: { fill: styles.primaryColor, width: 40 } }}
+                data={
+                  data?.data?.stats?.database.length
+                    ? transformDataForPolarChart(data.data.stats.database)
+                    : []
+                }
               />
             </VictoryChart>
           </Card>
@@ -112,25 +107,20 @@ const Teams: React.FC = () => {
           <Card
             title="Teams and member count"
             bordered={false}
-            // loading={dashboardStatsAPIResponse.isLoading}
+            loading={dashboardStatsAPIResponse.isLoading}
           >
             <VictoryChart domainPadding={20}>
               <VictoryBar
-                style={{ data: { fill: '#26519e' } }}
+                style={{ data: { fill: styles.primaryColor } }}
                 animate={{
                   duration: 2000,
                   onLoad: { duration: 1000 },
                 }}
-                // data={data?.data?.stats?.teams.length ? transformDataForBarChart(data.data.stats.teams) : []}
-                data={[
-                  { team: 'Infra', members: 4 },
-                  { team: 'API', members: 2 },
-                  { team: 'Dev Rel', members: 5 },
-                  { team: 'Txns', members: 2 },
-                  { team: 'Dashboard', members: 3 },
-                  { team: 'ITG', members: 6 },
-                  { team: 'BI', members: 3 },
-                ]}
+                data={
+                  data?.data?.stats?.teams.length
+                    ? transformDataForBarChart(data.data.stats.teams)
+                    : []
+                }
                 x="team"
                 y="members"
               />
@@ -143,7 +133,7 @@ const Teams: React.FC = () => {
           <Card
             title="Teams onboarded per month"
             bordered={false}
-            // loading={dashboardStatsAPIResponse.isLoading}
+            loading={dashboardStatsAPIResponse.isLoading}
           >
             <VictoryChart>
               <VictoryChart theme={VictoryTheme.material}>
@@ -158,13 +148,11 @@ const Teams: React.FC = () => {
                     parent: { border: '1px solid #ccc' },
                   }}
                   labels={({ datum }) => datum.y}
-                  // data={data?.data?.stats?.onboardedTeams.length ? transformDataForLineChart(data.data.stats.onboardedTeams) : []}
-                  data={[
-                    { x: 'July', y: 1 },
-                    { x: 'Aug', y: 2 },
-                    { x: 'Sept', y: 1 },
-                    { x: 'Oct', y: 3 },
-                  ]}
+                  data={
+                    data?.data?.stats?.onboardedTeams.length
+                      ? transformDataForLineChart(data.data.stats.onboardedTeams)
+                      : []
+                  }
                 />
               </VictoryChart>
             </VictoryChart>

@@ -10,5 +10,5 @@ export interface IDashboardStatsDatabaseData {
 
 export interface IDashboardStatsOnboardedTeamData {
   month: string;
-  teams: number;
+  teamCount: number;
 }
