@@ -36,11 +36,11 @@ export const loggedOutNavList: INavbarItem[] = [
     url: routes.home,
   },
   {
-    name: 'About us',
-    url: routes.aboutUs,
+    name: 'Pricing',
+    url: routes.pricing,
   },
-  {
-    name: 'Contact us',
-    url: routes.contactUs,
-  },
+  // {
+  //   name: 'Contact us',
+  //   url: routes.contactUs,
+  // },
 ];

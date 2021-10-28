@@ -1,0 +1,89 @@
+@import 'shared/styles/mixins';
+@import 'shared/styles/font';
+@import 'shared/styles/light-theme';
+@import 'shared/styles/variables';
+
+.pricingMain {
+  padding-bottom: 3rem;
+}
+
+.pricingWrapper {
+  @include flex(center, center, column);
+  margin: 2rem auto;
+  width: 50%;
+}
+
+.introductionTitle {
+  font-size: $font-heading-extra-large;
+  font-weight: $fontBolder;
+}
+
+.introductionText {
+  font-size: $font-large;
+}
+
+.pricaTableWrapper {
+  @include flex(center, center, row);
+  padding: 0 2rem;
+}
+.amountWrapper {
+  @include flex(center, flex-start, row);
+}
+
+.tableColumn {
+  @include flex(center, center, column);
+  border: $borderPrimary;
+  flex-grow: 1;
+  padding: 1rem 0;
+  margin: 0 0.5rem;
+  box-shadow: 0px 2px 8px 0px $secondary-border-color;
+  &:nth-of-type(2) {
+    flex-grow: 2;
+    background-color: $tertiary-background;
+  }
+}
+
+.pricingType {
+  font-size: $font-large;
+  font-weight: $fontBolder;
+}
+
+.currency {
+  font-size: $font-normal;
+  font-weight: $fontBold;
+}
+
+.amount {
+  font-size: $font-heading-large;
+  margin-left: 0.5rem;
+}
+
+.pricingTextBtn {
+  background-color: $primary-color;
+  border-radius: 0.5rem;
+  width: 10rem;
+  &:hover {
+    background-color: $primary-color-hover;
+  }
+}
+
+.marginTop8 {
+  margin-top: 0.5rem;
+}
+
+.pricingFeatures {
+  @include flex(flex-start, center, column);
+  padding-top: 1rem;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  li {
+    text-align: left;
+    padding: 0.5rem 0;
+  }
+}
+.listItemText {
+  padding: 0 0.5rem;
+}

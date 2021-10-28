@@ -8,6 +8,6 @@ export const routes = {
   userCredentials: '/user-credentials',
   profile: '/profile',
   home: '/home',
-  aboutUs: '/about-us',
+  pricing: '/pricing',
   contactUs: 'contact-us',
 };

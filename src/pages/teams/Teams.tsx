@@ -53,7 +53,7 @@ const Teams: React.FC = () => {
 
   const handleDeleteTeam = (id: string, name: string) => {
     confirm({
-      title: `Are you sure delete this team: ${name}?`,
+      title: `Are you sure you want to delete this team: ${name}?`,
       icon: <ExclamationCircleOutlined />,
       okText: 'Yes',
       okType: 'danger',

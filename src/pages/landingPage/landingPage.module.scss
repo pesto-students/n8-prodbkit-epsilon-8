@@ -1,0 +1,59 @@
+@import 'shared/styles/mixins';
+@import 'shared/styles/font';
+@import 'shared/styles/light-theme';
+
+.introductionWrapper {
+  @include flex(center, center, column);
+  margin: 4rem auto;
+  width: 50%;
+}
+
+.introBtnWrapper {
+  @include flex(center, space-between, row);
+}
+
+.introductionTitle {
+  font-size: $font-heading-extra-large;
+  font-weight: $fontBolder;
+}
+
+.introductionText {
+  font-size: $font-large;
+}
+
+.designBtn {
+  border-radius: 1rem;
+  font-size: $font-medium;
+  font-weight: $fontBold;
+  @include flex(center, center, row);
+  padding: 1.5rem;
+}
+
+.primaryDesignBtn {
+  background-color: $primary-color;
+  &:hover {
+    background-color: $primary-color-hover;
+  }
+}
+
+.secondaryDesignBtn {
+  color: $primary-color;
+}
+
+.featuresWrapper {
+  @include flex(top, space-between, row);
+  padding: 2rem 1rem;
+}
+
+.featureImage {
+  flex-grow: 1;
+}
+
+.featureText {
+  flex-grow: 3;
+}
+
+.featureTitle {
+  font-size: $font-heading-large;
+  font-weight: $fontBold;
+}

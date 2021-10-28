@@ -18,10 +18,19 @@
 }
 
 .logo {
-  width: 150px;
-  height: 45px;
-  background: url('../../../../assets/logo.png') no-repeat;
+  width: 40px;
+  height: 40px;
+  background: url('../../../../assets/database.png') no-repeat;
   background-size: cover;
+  &:after {
+    content: 'Pro-DB Kit';
+    position: absolute;
+    top: 1rem;
+    left: 4rem;
+    color: $primary-background;
+    font-size: $font-heading;
+    font-weight: $fontBold;
+  }
 }
 
 .navList {

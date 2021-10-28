@@ -1,5 +1,6 @@
 import { LogoutOutlined } from '@ant-design/icons';
-import { Button, Space } from 'antd';
+import { Button, Image, Space } from 'antd';
+import logo from 'assets/database.png';
 import cn from 'classnames';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +14,6 @@ import { IGlobalState } from 'shared/interfaces/globalState';
 
 import { INavbarItem } from './navbar.constants';
 import styles from './navbar.module.scss';
-
 export interface INavbar {
   isUserLoggedin: boolean;
   navbarItemList: Array<INavbarItem>;
@@ -48,40 +48,9 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
     return userDetails.email;
   };
 
-  // TODO - the below code is for role based authentication - for future scope
-
-  // const roleBasedNavbarItem = (navItem: INavbarItem) => {
-  //   const { loggedinUserRole } = globalAuthData;
-  //   return navItem.roles?.includes('all') || navItem.roles?.includes(loggedinUserRole);
-  // };
-
-  // const handleDropdownMenuClick = ({ key }: { key: string }) => {
-  //   switch (key) {
-  //     case 'user-profile':
-  //       history.push(routes.profile);
-  //       break;
-  //     case 'logout':
-  //       handleButtonClick();
-  //       break;
-  //     default:
-  //       return;
-  //   }
-  // };
-
-  // const dropdownMenu = (
-  //   <Menu onClick={handleDropdownMenuClick}>
-  //     <Menu.Item key="user-profile" icon={<UserOutlined />}>
-  //       User profile
-  //     </Menu.Item>
-  //     <Menu.Item key="logout" icon={<LogoutOutlined />}>
-  //       Logout
-  //     </Menu.Item>
-  //   </Menu>
-  // );
-
   return (
     <div className={cn(styles.navbarWrapper, styles.flexWrapper)}>
-      <div className={styles.logo}></div>
+      <div className={styles.logo}>{/* <Image src={logo} preview={false} /> */}</div>
       <div className={styles.navItems}>
         <ul className={styles.navList}>{navbarItemList.map(getNavbarItemView)}</ul>
       </div>

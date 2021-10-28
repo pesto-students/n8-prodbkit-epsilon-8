@@ -24,7 +24,7 @@ const Members = React.lazy(() => import('pages/members'));
 const Databases = React.lazy(() => import('pages/databases'));
 const AuditLogs = React.lazy(() => import('./pages/auditLogs'));
 const UserCredentials = React.lazy(() => import('pages/userCredentials'));
-const Profile = React.lazy(() => import('./pages/profile'));
+const Pricing = React.lazy(() => import('./pages/pricing'));
 const Home = React.lazy(() => import('./pages/landingPage'));
 
 const App: React.FC = () => {
@@ -53,7 +53,7 @@ const App: React.FC = () => {
                 <Route path={routes.databases} component={Databases} />
                 <Route path={routes.auditLogs} component={AuditLogs} />
                 <Route path={routes.userCredentials} component={UserCredentials} />
-                <Route path={routes.profile} component={Profile} />
+                <Route path={routes.pricing} component={Pricing} />
                 <Redirect to={routes.default} />
               </Switch>
             </React.Suspense>
