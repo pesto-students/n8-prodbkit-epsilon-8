@@ -1,13 +1,11 @@
 import { Button, Divider, Form, Input, notification } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
-// import { useCookies } from 'react-cookie';
 import { GoogleLogin } from 'react-google-login';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import { loginUser } from 'redux-features/auth';
-import { hideDrawer, showDrawer } from 'redux-features/commonDrawer';
+import { hideDrawer } from 'redux-features/commonDrawer';
 import { getURL } from 'shared/utils/api';
 
 import styles from './login.module.scss';
@@ -16,24 +14,49 @@ const Login: React.FC = () => {
   const [tokenId, setTokenID] = useState<string>('');
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const history = useHistory();
-  // const [cookies, setCookie, removeCookie] = useCookies(['jwt_token']);
 
-  const loginPostInfo = useMutation((token: any) => axios.post(getURL('/auth/login'), token), {
-    retry: false,
-  });
+  const loginPostViaGoogle = useMutation(
+    (token: any) => axios.post(getURL('/auth/loginViaGoogle'), token),
+    {
+      retry: false,
+    },
+  );
 
-  const navigateToSignup = () => {
-    dispatch(showDrawer({ key: 'signup' }));
-  };
+  const loginPostViaEmailAndPassword = useMutation(
+    (userValues: any) => {
+      return axios.post(getURL('/auth/login'), userValues);
+    },
+    {
+      retry: false,
+    },
+  );
 
   const saveJWTinLocalStorage = (token: string) => {
     localStorage.setItem('jwt_token', token);
-    // setCookie('jwt_token', 'bearer ' + token);
   };
 
   const getClientID = (): string => {
     return process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
+  };
+
+  const loginViaEmailAndPassword = async (userValues: { email: string; password: string }) => {
+    try {
+      await loginPostViaEmailAndPassword.mutate(userValues, {
+        onSuccess: ({ data }: any) => {
+          saveJWTinLocalStorage(data.access_token);
+          dispatch(hideDrawer());
+          dispatch(loginUser());
+        },
+        onError: (e) => {
+          console.log(e);
+          notification.error({
+            message: 'Unable to log you in right now!',
+          });
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const responseGoogle = async (response: any) => {
@@ -42,7 +65,7 @@ const Login: React.FC = () => {
       setTokenID(tokenId);
 
       try {
-        await loginPostInfo.mutate(
+        await loginPostViaGoogle.mutate(
           {
             id_token: tokenId,
           },
@@ -78,7 +101,13 @@ const Login: React.FC = () => {
         <Input.Password placeholder="Enter your password" size="large" />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" size="large" htmlType="submit" className={styles.formBtn}>
+        <Button
+          type="primary"
+          size="large"
+          htmlType="submit"
+          onClick={() => loginViaEmailAndPassword(form.getFieldsValue())}
+          className={styles.formBtn}
+        >
           Submit
         </Button>
       </Form.Item>
@@ -91,13 +120,6 @@ const Login: React.FC = () => {
           onFailure={responseGoogle}
         />
       </Form.Item>
-      <Divider orientation="right" plain>
-        {"Don't have an account?"}
-        <Button type="link" onClick={navigateToSignup}>
-          Signup
-        </Button>
-        here.
-      </Divider>
     </Form>
   );
 };
