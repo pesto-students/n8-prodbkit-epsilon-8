@@ -41,7 +41,7 @@
 }
 
 .featuresWrapper {
-  @include flex(top, space-between, row);
+  @include flex(top, flex-start, row);
   padding: 2rem 1rem;
 }
 
@@ -49,8 +49,8 @@
   flex-grow: 1;
 }
 
-.featureText {
-  flex-grow: 3;
+.featureTextWrapper {
+  flex-grow: 2;
 }
 
 .featureTitle {

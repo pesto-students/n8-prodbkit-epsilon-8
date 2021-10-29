@@ -50,7 +50,7 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
 
   return (
     <div className={cn(styles.navbarWrapper, styles.flexWrapper)}>
-      <div className={styles.logo}>{/* <Image src={logo} preview={false} /> */}</div>
+      <div className={styles.logo}></div>
       <div className={styles.navItems}>
         <ul className={styles.navList}>{navbarItemList.map(getNavbarItemView)}</ul>
       </div>
