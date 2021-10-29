@@ -1,4 +1,5 @@
 @import './colors';
+@import './light-theme';
 @import './mixins';
 
 .main-bar {
@@ -13,6 +14,7 @@
 
 .drawerFooterButtons {
   @include flex(center, end, row);
+  background-color: $primary-background;
   position: absolute;
   bottom: 0.5rem;
   width: 100%;

@@ -1,14 +1,13 @@
 import { Form, Input, notification, Select, Space } from 'antd';
-import { updateMemberList } from 'pages/members/redux/members';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useMutation, useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideDrawer } from 'redux-features/commonDrawer';
+import { RoleOptions } from 'shared/constants';
 
 import AntDButton from '../../../../shared/components/atoms/button/Button';
-import Loader from '../../../../shared/components/atoms/loader/Loader';
 import { IGlobalState } from '../../../../shared/interfaces/globalState';
-import { IMemberInfo } from '../../member.interface';
-import { createMember, getMember, updateMember } from '../../services/members.service';
+import { fetchMemberList, handleMemberSubmit } from '../../services/members.service';
 import { formatFormData } from './memberForm.helper';
 import styles from './memberForm.module.scss';
 const { Option } = Select;
@@ -17,27 +16,38 @@ const MemberForm: React.FC = () => {
   const [form] = Form.useForm();
   const commonStoreData = useSelector((state: IGlobalState) => state.common);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState<boolean>(false);
-  // const isEditForm = commonStoreData.id;
+
+  const { urlId } = commonStoreData;
+  const memberSubmit = useMutation(
+    (formData: any) => handleMemberSubmit({ data: formData, id: urlId }),
+    { retry: false },
+  );
+  const memberAPIResponse = useQuery(`member${urlId}`, () => fetchMemberList(urlId), {
+    retry: false,
+  });
+
+  const { data } = memberAPIResponse;
   const selectedMemberId = commonStoreData.id;
 
   useEffect(() => {
     form.setFieldsValue({
+      name: '',
       email: '',
       role: null,
     });
     if (!!selectedMemberId) {
-      setLoading(true);
-      getMember(selectedMemberId).then((res: IMemberInfo) => {
-        const { data } = res;
-        setLoading(false);
-        form.setFieldsValue({
-          name: data.name,
-          username: data.username,
-          email: data.email,
-          role: data.role,
-        });
-      });
+      if (data) {
+        const memberData = data.data as any;
+        const dataById = memberData.filter((item: any) => item.team_id === selectedMemberId);
+        if (dataById.length) {
+          const dataAtIndex0 = dataById[0];
+          form.setFieldsValue({
+            name: dataAtIndex0.name,
+            email: dataAtIndex0.email,
+            role: dataAtIndex0.role,
+          });
+        }
+      }
     }
   }, []);
 
@@ -56,7 +66,7 @@ const MemberForm: React.FC = () => {
 
   const handleFormSave = () => {
     if (!!selectedMemberId) {
-      handleUpdateMember();
+      // handleUpdateMember();
     } else {
       handleCreateMember();
     }
@@ -64,27 +74,15 @@ const MemberForm: React.FC = () => {
 
   const handleCreateMember = () => {
     const formattedData = formatFormData(form.getFieldsValue()) as any;
-    createMember(formattedData).then((res: any) => {
-      if (res.status !== 200) {
-        handleFailedToSave();
-        return;
-      }
-      dispatch(updateMemberList(res.data));
-      successCallback('created');
+    memberSubmit.mutate(formattedData, {
+      onSuccess: () => successCallback('created'),
+      onError: handleFailedToSave,
     });
   };
 
-  const handleUpdateMember = () => {
-    const formattedData = formatFormData(form.getFieldsValue());
-    updateMember(selectedMemberId as string, formattedData).then((res: any) => {
-      if (res.status !== 200) {
-        handleFailedToSave();
-        return;
-      }
-      dispatch(updateMemberList(res.data));
-      successCallback('updated');
-    });
-  };
+  // const handleUpdateMember = () => {
+  //   const formattedData = formatFormData(form.getFieldsValue());
+  // };
 
   const handleFormCancel = () => {
     dispatch(hideDrawer());
@@ -96,10 +94,6 @@ const MemberForm: React.FC = () => {
       ...changedFields,
     });
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <Form
@@ -116,15 +110,13 @@ const MemberForm: React.FC = () => {
         <Input placeholder="Enter your email id" size="large" />
       </Form.Item>
 
-      <Form.Item name="username" label="Username" rules={[{ required: true, type: 'string' }]}>
-        <Input placeholder="Enter username" size="large" />
-      </Form.Item>
-
       <Form.Item name="role" label="Role" rules={[{ required: true }]}>
         <Select placeholder="Select a role" allowClear>
-          <Option value="admin">Admin</Option>
-          <Option value="manager">Manager</Option>
-          <Option value="other">Others</Option>
+          {RoleOptions.map((roleItem: Record<string, string>, index: number) => (
+            <Option key={`role${index}`} value={roleItem.value}>
+              {roleItem.key}
+            </Option>
+          ))}
         </Select>
       </Form.Item>
       <div className={styles.formFooterButtons}>

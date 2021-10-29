@@ -1,11 +1,9 @@
 import { Button, Divider, Form, Input, notification } from 'antd';
 import axios from 'axios';
 import React, { useState } from 'react';
-// import { useCookies } from 'react-cookie';
 import { GoogleLogin } from 'react-google-login';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
 import { loginUser } from 'redux-features/auth';
 import { hideDrawer, showDrawer } from 'redux-features/commonDrawer';
 import { getURL } from 'shared/utils/api';
@@ -16,8 +14,6 @@ const Login: React.FC = () => {
   const [tokenId, setTokenID] = useState<string>('');
   const dispatch = useDispatch();
   const [form] = Form.useForm();
-  const history = useHistory();
-  // const [cookies, setCookie, removeCookie] = useCookies(['jwt_token']);
 
   const loginPostInfo = useMutation((token: any) => axios.post(getURL('/auth/login'), token), {
     retry: false,
@@ -29,7 +25,6 @@ const Login: React.FC = () => {
 
   const saveJWTinLocalStorage = (token: string) => {
     localStorage.setItem('jwt_token', token);
-    // setCookie('jwt_token', 'bearer ' + token);
   };
 
   const getClientID = (): string => {

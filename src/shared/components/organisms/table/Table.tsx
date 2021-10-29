@@ -1,18 +1,22 @@
-import { Table } from 'antd';
+import { Table, TableProps } from 'antd';
 import React from 'react';
 
-export interface ITable {
+export interface ITable extends TableProps<any> {
   columns: any[];
-  data: any[];
-  pagination?: any;
-  scroll?: any;
+  dataSource: any[];
 }
 
 const CommonTable: React.FC<ITable> = (props: ITable) => {
-  const { columns, data, ...extraProps } = props;
+  const { columns, dataSource, ...extraProps } = props;
   return (
     <div>
-      <Table columns={columns} dataSource={data} showSorterTooltip={false} {...extraProps} />
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        showSorterTooltip={false}
+        {...extraProps}
+        pagination={{ hideOnSinglePage: true, pageSize: 25, responsive: true }}
+      />
     </div>
   );
 };
