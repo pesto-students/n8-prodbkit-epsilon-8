@@ -1,0 +1,10 @@
+@import 'shared/styles/global';
+@import 'shared/styles/variables';
+
+.dashboardWrapper {
+  @extend .pageWrapper;
+}
+
+:export {
+  primaryColor: $blue-primary;
+}
