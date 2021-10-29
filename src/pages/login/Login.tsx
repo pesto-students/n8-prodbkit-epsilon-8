@@ -5,7 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { loginUser } from 'redux-features/auth';
-import { hideDrawer, showDrawer } from 'redux-features/commonDrawer';
+import { hideDrawer } from 'redux-features/commonDrawer';
 import { getURL } from 'shared/utils/api';
 
 import styles from './login.module.scss';
@@ -15,13 +15,21 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
 
-  const loginPostInfo = useMutation((token: any) => axios.post(getURL('/auth/login'), token), {
-    retry: false,
-  });
+  const loginPostViaGoogle = useMutation(
+    (token: any) => axios.post(getURL('/auth/loginViaGoogle'), token),
+    {
+      retry: false,
+    },
+  );
 
-  const navigateToSignup = () => {
-    dispatch(showDrawer({ key: 'signup' }));
-  };
+  const loginPostViaEmailAndPassword = useMutation(
+    (userValues: any) => {
+      return axios.post(getURL('/auth/login'), userValues);
+    },
+    {
+      retry: false,
+    },
+  );
 
   const saveJWTinLocalStorage = (token: string) => {
     localStorage.setItem('jwt_token', token);
@@ -31,13 +39,33 @@ const Login: React.FC = () => {
     return process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
   };
 
+  const loginViaEmailAndPassword = async (userValues: { email: string; password: string }) => {
+    try {
+      await loginPostViaEmailAndPassword.mutate(userValues, {
+        onSuccess: ({ data }: any) => {
+          saveJWTinLocalStorage(data.access_token);
+          dispatch(hideDrawer());
+          dispatch(loginUser());
+        },
+        onError: (e) => {
+          console.log(e);
+          notification.error({
+            message: 'Unable to log you in right now!',
+          });
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const responseGoogle = async (response: any) => {
     if (response && response.tokenId) {
       const { tokenId } = response;
       setTokenID(tokenId);
 
       try {
-        await loginPostInfo.mutate(
+        await loginPostViaGoogle.mutate(
           {
             id_token: tokenId,
           },
@@ -73,7 +101,13 @@ const Login: React.FC = () => {
         <Input.Password placeholder="Enter your password" size="large" />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" size="large" htmlType="submit" className={styles.formBtn}>
+        <Button
+          type="primary"
+          size="large"
+          htmlType="submit"
+          onClick={() => loginViaEmailAndPassword(form.getFieldsValue())}
+          className={styles.formBtn}
+        >
           Submit
         </Button>
       </Form.Item>
@@ -86,13 +120,6 @@ const Login: React.FC = () => {
           onFailure={responseGoogle}
         />
       </Form.Item>
-      <Divider orientation="right" plain>
-        {"Don't have an account?"}
-        <Button type="link" onClick={navigateToSignup}>
-          Signup
-        </Button>
-        here.
-      </Divider>
     </Form>
   );
 };
