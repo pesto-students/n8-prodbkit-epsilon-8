@@ -48,12 +48,12 @@ const Teams: React.FC = () => {
   }
 
   function transformDataForLineChart(onboardedTeamStats: IDashboardStatsOnboardedTeamData[] = []) {
-    return onboardedTeamStats.map(
-      ({ month, teamCount }: IDashboardStatsOnboardedTeamData): { x: string; y: number } => ({
+    return onboardedTeamStats
+      .map(({ month, teams }: IDashboardStatsOnboardedTeamData): { x: string; y: number } => ({
         x: month,
-        y: teamCount,
-      }),
-    );
+        y: teams,
+      }))
+      .reverse();
   }
 
   return (
@@ -95,8 +95,8 @@ const Teams: React.FC = () => {
                 }}
                 style={{ data: { fill: styles.primaryColor, width: 40 } }}
                 data={
-                  data?.data?.stats?.database.length
-                    ? transformDataForPolarChart(data.data.stats.database)
+                  data?.data?.stats?.databases.length
+                    ? transformDataForPolarChart(data.data.stats.databases)
                     : []
                 }
               />

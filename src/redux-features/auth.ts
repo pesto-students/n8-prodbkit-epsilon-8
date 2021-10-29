@@ -8,7 +8,7 @@ export interface IAuthState {
 }
 
 const initialState: IAuthState = {
-  isUserLoggedin: true,
+  isUserLoggedin: false,
   loggedinUserRole: 'admin',
   userDetails: {
     email: 'saurav.arora@gmail.com',
