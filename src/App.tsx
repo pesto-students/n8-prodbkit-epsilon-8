@@ -1,12 +1,9 @@
 import { Space } from 'antd';
 import cn from 'classnames';
-import { isEmpty } from 'lodash';
 import MainApp from 'pages/mainApp';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import { loginUser, logoutUser } from 'redux-features/auth';
+import { BrowserRouter } from 'react-router-dom';
 import AntDDrawer from 'shared/components/organisms/drawer/Drawer';
 import AntDModal from 'shared/components/organisms/modal/Modal';
 
