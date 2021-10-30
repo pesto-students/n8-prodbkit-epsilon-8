@@ -4,7 +4,7 @@ import { modalTitleMap } from 'shared/components/organisms/drawer/drawer.constan
 export interface ICommonState {
   isDrawerVisible: boolean;
   drawerTitle: string;
-  id: string | undefined;
+  id: string;
   isDrawerFormReadOnly: boolean;
   urlId: string;
 
@@ -16,7 +16,7 @@ export interface ICommonState {
 const initialState = {
   isDrawerVisible: false,
   drawerTitle: '',
-  id: undefined,
+  id: '',
   isDrawerFormReadOnly: false,
   urlId: '',
 
@@ -40,7 +40,7 @@ const commonDrawerSlice = createSlice({
     hideDrawer: (state) => {
       state.isDrawerVisible = false;
       state.drawerTitle = '';
-      state.id = undefined;
+      state.id = '';
       return state;
     },
     showModal: (state, { payload }: { payload: Record<string, string> }) => {
@@ -53,7 +53,7 @@ const commonDrawerSlice = createSlice({
     hideModal: (state) => {
       state.isModalVisible = false;
       state.modalTitle = '';
-      state.id = undefined;
+      state.id = '';
       return state;
     },
   },

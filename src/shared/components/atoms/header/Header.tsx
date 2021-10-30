@@ -7,8 +7,8 @@ import styles from './header.module.scss';
 
 interface IHeader {
   title: string;
-  buttonText: string;
-  buttonCallback: () => void;
+  buttonText?: string;
+  buttonCallback?: () => void;
   buttonIcon?: React.ReactNode;
   showSearchInput?: boolean;
   onSearchTextChange?: (text: string) => void;
@@ -38,7 +38,9 @@ const Header: React.FC<IHeader> = ({
           ></Input>
         )}
       </Space>
-      <AntDButton type="primary" text={buttonText} onClick={buttonCallback} icon={buttonIcon} />
+      {buttonText && (
+        <AntDButton type="primary" text={buttonText} onClick={buttonCallback} icon={buttonIcon} />
+      )}
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { Card, Col, Row } from 'antd';
 import axios from 'axios';
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { useQuery } from 'react-query';
 import Header from 'shared/components/atoms/header/Header';
+import CommonHelmet from 'shared/components/atoms/helmet/Helmet';
 import { getURL } from 'shared/utils/api';
 import { VictoryBar, VictoryChart, VictoryLine, VictoryPolarAxis, VictoryTheme } from 'victory';
 
@@ -58,10 +58,7 @@ const Teams: React.FC = () => {
 
   return (
     <div className={styles.dashboardWrapper}>
-      <Helmet>
-        <meta name="Pro-DB Kit" content="Ninja 8 demo app" charSet="utf-8" />
-        <title>{PAGE_TITLE}</title>
-      </Helmet>
+      <CommonHelmet title={PAGE_TITLE} />
       <Header
         title={PAGE_TITLE}
         buttonText=""

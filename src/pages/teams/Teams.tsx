@@ -25,7 +25,9 @@ const PAGE_TITLE = 'Teams';
 const Teams: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const teamsAPIResponse = useQuery('teams', fetchTeamsList, { retry: false });
+  const teamsAPIResponse = useQuery('teams', fetchTeamsList, {
+    retry: false,
+  });
   const teamDelete = useMutation((id: string) => handleTeamDelete(id), { retry: false });
   const { data } = teamsAPIResponse;
   const [searchInputText, setSearchInputText] = useState<string>('');
@@ -74,9 +76,9 @@ const Teams: React.FC = () => {
       dataIndex: 'name',
       key: 'name',
       render: (text: string, record: any) => (
-        <Tag onClick={() => handleTeamClick(record.team_id)} color="#108ee9">
+        <span onClick={() => handleTeamClick(record.team_id)} className={styles.teamName}>
           {record.name}
-        </Tag>
+        </span>
       ),
     },
     {

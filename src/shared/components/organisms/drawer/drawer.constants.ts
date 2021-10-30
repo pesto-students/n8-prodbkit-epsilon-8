@@ -16,8 +16,6 @@ export const keyMap: Record<string, React.ReactNode> = {
   viewTeam: teamForm,
   editTeam: teamForm,
 
-  // addTeam:
-
   addDatabase: databaseForm,
   viewDatabase: databaseForm,
   editDatabase: databaseForm,

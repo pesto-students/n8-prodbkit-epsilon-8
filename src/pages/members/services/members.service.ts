@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getURL, getUrlById } from 'shared/utils/api';
 
 import { http } from '../../../http';
-import { IMemberData, IMemberPostData, IMemberPutData } from '../member.interface';
+import { IMemberPutData } from '../member.interface';
 
 export const updateMember = (id: string, data: IMemberPutData) => {
   return http.put(`/member/${id}`, data);
@@ -38,11 +38,11 @@ export const handleMemberSubmit = (formObject: any) => {
   });
 };
 
-export const handleMemberUpdate = (formObject: Record<string, any>) => {
-  return axios.put(getUrlById('/member', formObject.id), formObject.data, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
-};
+// export const handleMemberUpdate = (formObject: Record<string, any>) => {
+//   return axios.put(getUrlById('/member', formObject.id), formObject.data, {
+//     headers: {
+//       Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+//       'Content-Type': 'application/json',
+//     },
+//   });
+// };

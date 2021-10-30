@@ -1,6 +1,13 @@
 @import 'shared/styles/global';
 @import 'shared/styles/variables';
+@import 'shared/styles/font';
 
 .teamWrapper {
   @extend .pageWrapper;
+}
+
+.teamName {
+  font-weight: $fontBold;
+  cursor: pointer;
+  text-decoration: underline;
 }

@@ -5,7 +5,7 @@ import {
   handleTeamUpdate,
 } from 'pages/teams/services/teams.service';
 import React, { useEffect } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideDrawer } from 'redux-features/commonDrawer';
 
@@ -25,6 +25,7 @@ const MemberForm: React.FC = () => {
   const teamUpdate = useMutation((data: any) => handleTeamUpdate(data), { retry: false });
 
   const { data } = teamAPIResponse;
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     form.setFieldsValue({
@@ -49,7 +50,7 @@ const MemberForm: React.FC = () => {
   const successCallback = (action: 'created' | 'updated' | 'deleted') => {
     dispatch(hideDrawer());
     notification.success({
-      message: `Member ${action} successfully`,
+      message: `Team ${action} successfully`,
     });
   };
 
@@ -70,7 +71,10 @@ const MemberForm: React.FC = () => {
   const handleCreateMember = () => {
     const formattedData = formatFormData(form.getFieldsValue()) as any;
     teamSubmit.mutate(formattedData, {
-      onSuccess: () => successCallback('created'),
+      onSuccess: (data) => {
+        successCallback('created');
+        queryClient.setQueryData(['teams'], data.data);
+      },
       onError: failureCallback,
     });
   };

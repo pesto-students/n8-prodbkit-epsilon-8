@@ -1,34 +1,29 @@
 import { Button, Divider, Form, Input, notification } from 'antd';
-import axios from 'axios';
 import React, { useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import { loginUser } from 'redux-features/auth';
 import { hideDrawer } from 'redux-features/commonDrawer';
-import { getURL } from 'shared/utils/api';
+import { routes } from 'routes';
 
 import styles from './login.module.scss';
+import { submitGoogleLogin, submitManualLogin } from './services/login.service';
 
 const Login: React.FC = () => {
   const [tokenId, setTokenID] = useState<string>('');
   const dispatch = useDispatch();
   const [form] = Form.useForm();
+  const history = useHistory();
 
-  const loginPostViaGoogle = useMutation(
-    (token: any) => axios.post(getURL('/auth/loginViaGoogle'), token),
-    {
-      retry: false,
-    },
-  );
+  const loginPostViaGoogle = useMutation((token: any) => submitGoogleLogin(token), {
+    retry: false,
+  });
 
   const loginPostViaEmailAndPassword = useMutation(
-    (userValues: any) => {
-      return axios.post(getURL('/auth/login'), userValues);
-    },
-    {
-      retry: false,
-    },
+    (userValues: any) => submitManualLogin(userValues),
+    { retry: false },
   );
 
   const saveJWTinLocalStorage = (token: string) => {
@@ -43,20 +38,28 @@ const Login: React.FC = () => {
     try {
       await loginPostViaEmailAndPassword.mutate(userValues, {
         onSuccess: ({ data }: any) => {
-          saveJWTinLocalStorage(data.access_token);
-          dispatch(hideDrawer());
-          dispatch(loginUser());
+          handleLoginSuccess(data);
         },
-        onError: (e) => {
-          console.log(e);
-          notification.error({
-            message: 'Unable to log you in right now!',
-          });
-        },
+        onError: (e) => handleLoginFailure(e),
       });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleLoginSuccess = (data: any) => {
+    saveJWTinLocalStorage(data.access_token);
+    dispatch(hideDrawer());
+    dispatch(loginUser());
+    location.href = routes.dashboard;
+    // history.push(routes.dashboard);
+  };
+
+  const handleLoginFailure = (e?: any) => {
+    console.log(e);
+    notification.error({
+      message: 'Unable to log you in right now!',
+    });
   };
 
   const responseGoogle = async (response: any) => {
@@ -71,15 +74,9 @@ const Login: React.FC = () => {
           },
           {
             onSuccess: ({ data }) => {
-              saveJWTinLocalStorage(data.access_token);
-              dispatch(hideDrawer());
-              dispatch(loginUser());
+              handleLoginSuccess(data);
             },
-            onError: () => {
-              notification.error({
-                message: 'Unable to log you in right now!',
-              });
-            },
+            onError: handleLoginFailure,
           },
         );
       } catch (error) {
