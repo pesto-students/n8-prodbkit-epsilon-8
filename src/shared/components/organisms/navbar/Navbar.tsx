@@ -1,6 +1,7 @@
 import { LogoutOutlined } from '@ant-design/icons';
 import { Button, Space } from 'antd';
 import cn from 'classnames';
+import JWTDecode from 'jwt-decode';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -44,8 +45,14 @@ const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
   };
 
   const getUserEmail = () => {
-    const { userDetails } = globalAuthData;
-    return userDetails.email;
+    const jwt = localStorage.getItem('jwt_token') || '';
+    try {
+      const { username }: { username: string } = JWTDecode(jwt);
+      return username;
+    } catch (error) {
+      console.log(error);
+      return 'guest-user@prodbkit.io';
+    }
   };
 
   // TODO - the below code is for role based authentication - for future scope
