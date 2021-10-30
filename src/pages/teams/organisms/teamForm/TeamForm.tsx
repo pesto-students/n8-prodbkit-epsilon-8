@@ -20,11 +20,11 @@ const MemberForm: React.FC = () => {
   const dispatch = useDispatch();
   const selectedTeamId = commonStoreData.id;
   const isReadOnly = commonStoreData.isDrawerFormReadOnly;
-  const teamAPIResponse = useQuery('teams', fetchTeamsList, { retry: false });
   const teamSubmit = useMutation(handleTeamSubmit, { retry: false });
   const teamUpdate = useMutation((data: any) => handleTeamUpdate(data), { retry: false });
+  const teamAPIResponse = useQuery('teams', fetchTeamsList, { retry: false, enabled: false });
 
-  const { data } = teamAPIResponse;
+  const { data, refetch } = teamAPIResponse;
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -49,6 +49,7 @@ const MemberForm: React.FC = () => {
 
   const successCallback = (action: 'created' | 'updated' | 'deleted') => {
     dispatch(hideDrawer());
+    refetch();
     notification.success({
       message: `Team ${action} successfully`,
     });
@@ -71,7 +72,7 @@ const MemberForm: React.FC = () => {
   const handleCreateMember = () => {
     const formattedData = formatFormData(form.getFieldsValue()) as any;
     teamSubmit.mutate(formattedData, {
-      onSuccess: (data) => {
+      onSuccess: (data: any) => {
         successCallback('created');
         queryClient.setQueryData(['teams'], data.data);
       },

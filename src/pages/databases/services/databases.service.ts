@@ -1,38 +1,17 @@
-import axios from 'axios';
-import { getURL, getUrlById } from 'shared/utils/api';
+import ApiService from 'shared/api';
 
 export const fetchDatabaseList = () => {
-  return axios.get(getURL('/db'), {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.get('/db');
 };
 
 export const handleDatabaseDelete = (id: string) => {
-  return axios.delete(getUrlById('/db', id), {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.delete(`/db/${id}`);
 };
 
 export const handleDatabaseSubmit = (formObject: any) => {
-  return axios.post(getURL('/db'), formObject, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.get('/db', formObject);
 };
 
 export const handleDatabaseUpdate = (formObject: Record<string, any>) => {
-  return axios.put(getUrlById('/db', formObject.id), formObject.data, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.put(`/db/${formObject.id}`, formObject.data);
 };

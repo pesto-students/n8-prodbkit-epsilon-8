@@ -1,10 +1,9 @@
-import axios from 'axios';
-import { getURL } from 'shared/utils/api';
+import ApiService from 'shared/api';
 
 export const submitManualLogin = (userValues: any) => {
-  return axios.post(getURL('/auth/login'), userValues);
+  return ApiService.post('/auth/login', userValues);
 };
 
 export const submitGoogleLogin = (userValues: any) => {
-  return axios.post(getURL('/auth/loginViaGoogle'), userValues);
+  return ApiService.post('/auth/loginViaGoogle', userValues);
 };

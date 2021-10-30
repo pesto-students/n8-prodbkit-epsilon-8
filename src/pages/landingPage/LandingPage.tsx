@@ -10,6 +10,7 @@ import { routes } from 'routes';
 import AntDButton from 'shared/components/atoms/button/Button';
 import CommonHelmet from 'shared/components/atoms/helmet/Helmet';
 
+import { staticDataObject } from './landingPage.constants';
 import styles from './landingPage.module.scss';
 
 const PAGE_TITLE = 'Home';
@@ -30,11 +31,8 @@ const LandingPage: React.FC = () => {
     <>
       <CommonHelmet title={PAGE_TITLE} />
       <section className={styles.introductionWrapper}>
-        <h2 className={styles.introductionTitle}>Build internal tools, remarkably fast</h2>
-        <p className={styles.introductionText}>
-          Stop wrestling with UI libraries, hacking together data sources, and figuring out access
-          controls. Start shipping apps that move your business forward.
-        </p>
+        <h2 className={styles.introductionTitle}>{staticDataObject.title}</h2>
+        <p className={styles.introductionText}>{staticDataObject.subtitle}</p>
         <div className={styles.introBtnWrapper}>
           <Space size={8}>
             <AntDButton
@@ -53,79 +51,18 @@ const LandingPage: React.FC = () => {
           </Space>
         </div>
       </section>
-      <section className={styles.featuresWrapper}>
-        <Space size={16}>
-          <div className={styles.featureImage}>
-            <Image src={featureImage} preview={false} />
-          </div>
-          <div className={styles.featureTextWrapper}>
-            <h3 className={styles.featureTitle}>A complete set of powerful building blocks</h3>
-            <p className={styles.featureText}>
-              All internal tools are made up of the building blocks: Tables, Lists, Charts, Forms,
-              Wizards, Maps and so on. Retool provides a complete set of powerful building blocks
-              out of the box. Spend your time getting UI in front of stakeholders, not hunting down
-              the best React table library. Assemble your app in 30 seconds by dragging and dropping
-              from our pre-built components.All internal tools are made up of the building blocks:
-              Tables, Lists, Charts, Forms, Wizards, Maps and so on. Retool provides a complete set
-              of powerful building blocks out of the box. Spend your time getting UI in front of
-              stakeholders, not hunting down the best React table library. Assemble your app in 30
-              seconds by dragging and dropping from our pre-built components.All internal tools are
-              made up of the building blocks: Tables, Lists, Charts, Forms, Wizards, Maps and so on.
-              Retool provides a complete set of powerful building blocks out of the box. Spend your
-              time getting UI in front of stakeholders, not hunting down the best React table
-              library. Assemble your app in 30 seconds by dragging and dropping from our pre-built
-              components.
-            </p>
-          </div>
-        </Space>
-      </section>
-      <section className={styles.featuresWrapper}>
-        <Space size={16}>
-          <div className={styles.featureTextWrapper}>
-            <h3 className={styles.featureTitle}>A complete set of powerful building blocks</h3>
-            <p className={styles.featureText}>
-              All internal tools are made up of the building blocks: Tables, Lists, Charts, Forms,
-              Wizards, Maps and so on. Retool provides a complete set of powerful building blocks
-              out of the box. Spend your time getting UI in front of stakeholders, not hunting down
-              the best React table library. Assemble your app in 30 seconds by dragging and dropping
-              from our pre-built components.All internal tools are made up of the building blocks:
-              Tables, Lists, Charts, Forms, Wizards, Maps and so on. Retool provides a complete set
-              of powerful building blocks out of the box. Spend your time getting UI in front of
-              stakeholders, not hunting down the best React table library. Assemble your app in 30
-              seconds by dragging and dropping from our pre-built components.All internal tools are
-              made up of the building blocks: Tables, Lists, Charts, Forms, Wizards, Maps and so on.
-              Retool provides a complete set of powerful building blocks out of the box. Spend your
-              time getting UI in front of stakeholders, not hunting down the best React table
-              library. Assemble your app in 30 seconds by dragging and dropping from our pre-built
-              components.
-            </p>
-          </div>
-          <Image className={styles.featureImage} src={featureImage} preview={false} />
-        </Space>
-      </section>
-      <section className={styles.featuresWrapper}>
-        <Space size={16}>
-          <div className={styles.featureTextWrapper}>
-            <h3 className={styles.featureTitle}>A complete set of powerful building blocks</h3>
-            <p className={styles.featureText}>
-              All internal tools are made up of the building blocks: Tables, Lists, Charts, Forms,
-              Wizards, Maps and so on. Retool provides a complete set of powerful building blocks
-              out of the box. Spend your time getting UI in front of stakeholders, not hunting down
-              the best React table library. Assemble your app in 30 seconds by dragging and dropping
-              from our pre-built components.All internal tools are made up of the building blocks:
-              Tables, Lists, Charts, Forms, Wizards, Maps and so on. Retool provides a complete set
-              of powerful building blocks out of the box. Spend your time getting UI in front of
-              stakeholders, not hunting down the best React table library. Assemble your app in 30
-              seconds by dragging and dropping from our pre-built components.All internal tools are
-              made up of the building blocks: Tables, Lists, Charts, Forms, Wizards, Maps and so on.
-              Retool provides a complete set of powerful building blocks out of the box. Spend your
-              time getting UI in front of stakeholders, not hunting down the best React table
-              library. Assemble your app in 30 seconds by dragging and dropping from our pre-built
-              components.
-            </p>
-          </div>
-          <Image className={styles.featureImage} src={featureImage} preview={false} />
-        </Space>
+      <section className={styles.featureSectionWrapper}>
+        {staticDataObject.pageSection.map((sectionItem: any, index: number) => (
+          <Space key={index} size={16} className={styles.featuresWrapper}>
+            <div className={styles.featureImage}>
+              <Image src={featureImage} preview={false} />
+            </div>
+            <div className={styles.featureTextWrapper}>
+              <h3 className={styles.featureTitle}>{sectionItem.heading}</h3>
+              <p className={styles.featureText}>{sectionItem.content}</p>
+            </div>
+          </Space>
+        ))}
       </section>
     </>
   );

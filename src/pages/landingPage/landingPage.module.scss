@@ -38,11 +38,18 @@
 
 .secondaryDesignBtn {
   color: $primary-color;
+  &:hover {
+    color: $primary-color-hover;
+  }
 }
 
 .featuresWrapper {
   @include flex(top, flex-start, row);
-  padding: 2rem 1rem;
+  padding: 3rem 1rem;
+}
+
+.featureSectionWrapper .featuresWrapper:nth-child(2n) {
+  flex-direction: row-reverse;
 }
 
 .featureImage {

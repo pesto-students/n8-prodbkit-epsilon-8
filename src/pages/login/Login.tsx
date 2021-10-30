@@ -73,7 +73,7 @@ const Login: React.FC = () => {
             id_token: tokenId,
           },
           {
-            onSuccess: ({ data }) => {
+            onSuccess: ({ data }: any) => {
               handleLoginSuccess(data);
             },
             onError: handleLoginFailure,

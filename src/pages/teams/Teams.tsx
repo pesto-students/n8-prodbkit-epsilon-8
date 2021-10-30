@@ -47,7 +47,7 @@ const Teams: React.FC = () => {
       },
       onError: () => {
         notification.error({
-          message: `Couldn't delete this database. Please try again.`,
+          message: `Couldn't delete this Team. Please try again.`,
         });
       },
     });

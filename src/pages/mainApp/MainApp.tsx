@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router';
 import { loginUser, logoutUser } from 'redux-features/auth';
 import { routes } from 'routes';
+import ApiService from 'shared/api';
 import AntDSkeleton from 'shared/components/atoms/skeleton/Skeleton';
 import Navbar from 'shared/components/organisms/navbar/Navbar';
 import {
@@ -23,7 +24,6 @@ const Home = React.lazy(() => import('pages/landingPage'));
 
 const MainApp = () => {
   const globalAuthData = useSelector((globalState: IGlobalState) => globalState.auth);
-  const { isUserLoggedin } = globalAuthData;
   const dispatch = useDispatch();
   const token = localStorage.getItem('jwt_token');
 

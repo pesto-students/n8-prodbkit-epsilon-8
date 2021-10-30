@@ -1,38 +1,17 @@
-import axios from 'axios';
-import { getURL, getUrlById } from 'shared/utils/api';
+import ApiService from 'shared/api';
 
 export const fetchTeamsList = () => {
-  return axios.get(getURL('/team'), {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.get('/team');
 };
 
 export const handleTeamDelete = (id: string) => {
-  return axios.delete(getUrlById('/team', id), {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.delete(`/team/${id}`);
 };
 
 export const handleTeamSubmit = (formObject: any) => {
-  return axios.post(getURL('/team'), formObject, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.post('/team', formObject);
 };
 
 export const handleTeamUpdate = (formObject: Record<string, any>) => {
-  return axios.put(getUrlById('/team', formObject.id), formObject.data, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.put(`/team/${formObject.id}`, formObject.data);
 };

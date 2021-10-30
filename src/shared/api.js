@@ -9,12 +9,13 @@ class ApiService {
       throw new Error('Cannot construct singleton');
     }
 
-    console.log(`API Service for ${location.protocol}//${location.host}/api`);
+    console.log(`API Service for ${process.env.REACT_APP_BASE_URL}`);
 
     this.session = axios.create({
-      baseURL: `${location.protocol}//${location.host}/api`,
+      baseURL: `${process.env.REACT_APP_BASE_URL}`,
       headers: {
-        Content: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
+        'Content-Type': 'application/json',
       },
     });
   }
@@ -31,7 +32,7 @@ class ApiService {
   post = (...params) => this.session.post(...params);
   put = (...params) => this.session.put(...params);
   patch = (...params) => this.session.patch(...params);
-  remove = (...params) => this.session.delete(...params);
+  delete = (...params) => this.session.delete(...params);
 }
 
 export default ApiService.instance;

@@ -13,17 +13,9 @@ import {
   IDashboardStatsTeamData,
 } from './dashboard.interface';
 import styles from './dashboard.module.scss';
+import { fetchDashboardStats } from './services/dashboard.service';
 
 const PAGE_TITLE = 'Dashboard';
-
-const fetchDashboardStats = () => {
-  return axios.get(getURL('/auth/dashboard-stats'), {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
-};
 
 const Teams: React.FC = () => {
   const dashboardStatsAPIResponse = useQuery('dashboard-stats', fetchDashboardStats);
@@ -144,7 +136,7 @@ const Teams: React.FC = () => {
                     data: { stroke: '#26519e' },
                     parent: { border: '1px solid #ccc' },
                   }}
-                  labels={({ datum }) => datum.y}
+                  labels={({ datum }: any) => datum.y}
                   data={
                     data?.data?.stats?.onboardedTeams.length
                       ? transformDataForLineChart(data.data.stats.onboardedTeams)

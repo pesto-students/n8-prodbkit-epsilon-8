@@ -1,10 +1,8 @@
-import { Table } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query';
 import Header from 'shared/components/atoms/header/Header';
 import CommonHelmet from 'shared/components/atoms/helmet/Helmet';
 import CommonTable from 'shared/components/organisms/table/Table';
-import { handleTableData } from 'shared/utils/table';
 
 import styles from './auditLogs.module.scss';
 import { fetchAuditLogsList } from './services/AuditLogs.service';
@@ -14,41 +12,36 @@ const PAGE_TITLE = 'Audit Logs';
 const AuditLogs: React.FC = () => {
   const auditLogsAPIResponse = useQuery('audit-logs', fetchAuditLogsList, { retry: false });
   const { data } = auditLogsAPIResponse;
-  const [searchInputText, setSearchInputText] = useState<string>('');
 
   const columns = [
     {
-      title: 'Action',
+      title: 'Action performed',
       dataIndex: 'action',
       key: 'action',
+      render: (text: any, record: any) => <span>{record.action.type}</span>,
     },
     {
-      title: 'By',
+      title: 'Performed by',
       dataIndex: 'actor',
       key: 'actor',
+      render: (text: any, record: any) => <span>{record.actor.member.name}</span>,
     },
     {
-      title: 'When',
+      title: 'Performed at',
       dataIndex: 'created',
       key: 'created',
     },
   ];
 
-  const handleTeamSearch = (searchtext: string) => {
-    setSearchInputText(searchtext);
-  };
-
   return (
     <div className={styles.auditLogsWrapper}>
       <CommonHelmet title={PAGE_TITLE} />
-      <Header title={PAGE_TITLE} showSearchInput={true} onSearchTextChange={handleTeamSearch} />
+      <Header title={PAGE_TITLE} />
       <CommonTable
         columns={columns}
         loading={auditLogsAPIResponse.isLoading}
         rowKey={'id'}
-        dataSource={
-          auditLogsAPIResponse === undefined ? [] : handleTableData(data, searchInputText)
-        }
+        dataSource={auditLogsAPIResponse === undefined ? [] : data?.data}
       />
     </div>
   );
