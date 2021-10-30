@@ -45,7 +45,7 @@ const App: React.FC = () => {
             </header>
             <React.Suspense fallback={<AntDSkeleton />}>
               <Switch>
-                <Route exact path={routes.default} component={Dashboard} />
+                <Route exact path={routes.default} component={Home} />
                 <Route path={routes.home} component={Home} />
                 <Route path={routes.dashboard} component={Dashboard} />
                 <Route path="/members/:id" component={Members} />
