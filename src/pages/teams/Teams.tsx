@@ -29,7 +29,7 @@ const Teams: React.FC = () => {
     retry: false,
   });
   const teamDelete = useMutation((id: string) => handleTeamDelete(id), { retry: false });
-  const { data } = teamsAPIResponse;
+  const { data, refetch } = teamsAPIResponse;
   const [searchInputText, setSearchInputText] = useState<string>('');
 
   const handleViewTeam = (id: string) => {
@@ -44,6 +44,7 @@ const Teams: React.FC = () => {
     teamDelete.mutate(id, {
       onSuccess: () => {
         notification.success({ message: `Team ${email} deleted successfully` });
+        refetch();
       },
       onError: () => {
         notification.error({

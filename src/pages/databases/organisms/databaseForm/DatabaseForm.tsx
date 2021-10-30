@@ -24,7 +24,7 @@ const DatabaseForm: React.FC = () => {
   const selectedDatabaseId = commonStoreData.id;
   const isReadOnly = commonStoreData.isDrawerFormReadOnly;
   const databaseAPIResponse = useQuery('databases', fetchDatabaseList, { retry: false });
-  const { data } = databaseAPIResponse;
+  const { data, refetch } = databaseAPIResponse;
 
   const databaseSubmit = useMutation(handleDatabaseSubmit, { retry: false });
   const databaseUpdate = useMutation((data: any) => handleDatabaseUpdate(data), { retry: false });
@@ -64,6 +64,7 @@ const DatabaseForm: React.FC = () => {
     notification.success({
       message: `Database ${action} successfully`,
     });
+    refetch();
   };
 
   const failureCallback = () => {

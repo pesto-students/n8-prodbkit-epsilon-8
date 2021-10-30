@@ -29,28 +29,17 @@ const Members: React.FC = () => {
     retry: false,
   });
 
-  const { data } = memberAPIResponse;
+  const { data, refetch } = memberAPIResponse;
 
   const handleViewMember = (memberId: string) => {
     dispatch(showDrawer({ key: 'viewMember', urlId: id, id: memberId, isReadOnly: true }));
   };
 
-  // const handleEditMember = (id: string) => {
-  //   dispatch(showDrawer({ key: 'editMember', id: id }));
-  // };
-
-  // const handleUpdateMember = () => {
-  //   const formattedData = formatFormData(form.getFieldsValue());
-  //   memberDelete.mutate(formattedData, {
-  //     onSuccess: () => successCallback('deleted'),
-  //     onError: handleFailedToSave,
-  //   });
-  // };
-
   const successCallback = () => {
     notification.success({
       message: `Member deleted successfully`,
     });
+    refetch();
   };
 
   const handleFailedToDelete = () => {

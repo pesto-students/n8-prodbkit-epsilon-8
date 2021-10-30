@@ -22,10 +22,9 @@ const MemberForm: React.FC = () => {
   const isReadOnly = commonStoreData.isDrawerFormReadOnly;
   const teamSubmit = useMutation(handleTeamSubmit, { retry: false });
   const teamUpdate = useMutation((data: any) => handleTeamUpdate(data), { retry: false });
-  const teamAPIResponse = useQuery('teams', fetchTeamsList, { retry: false, enabled: false });
+  const teamAPIResponse = useQuery('teams', fetchTeamsList, { retry: false });
 
   const { data, refetch } = teamAPIResponse;
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     form.setFieldsValue({
@@ -74,7 +73,7 @@ const MemberForm: React.FC = () => {
     teamSubmit.mutate(formattedData, {
       onSuccess: (data: any) => {
         successCallback('created');
-        queryClient.setQueryData(['teams'], data.data);
+        // queryClient.setQueryData(['teams'], data.data);
       },
       onError: failureCallback,
     });

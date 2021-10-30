@@ -4,14 +4,13 @@ import logo from 'assets/database.png';
 import cn from 'classnames';
 import JWTDecode from 'jwt-decode';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { logoutUser } from 'redux-features/auth';
 import { showDrawer } from 'redux-features/commonDrawer';
 import { routes } from 'routes';
 import UserAvatar from 'shared/components/atoms/avatar/Avatar';
-import { IGlobalState } from 'shared/interfaces/globalState';
 
 import { INavbarItem } from './navbar.constants';
 import styles from './navbar.module.scss';
@@ -23,7 +22,6 @@ export interface INavbar {
 const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const globalAuthData = useSelector((globalState: IGlobalState) => globalState.auth);
   // const [activeLink, setActiveLink] = useState(navbarItemList[0]?.name);
 
   const handleUserLogin = () => {

@@ -37,7 +37,7 @@ const MemberForm: React.FC = () => {
     retry: false,
   });
 
-  const { data } = memberAPIResponse;
+  const { data, refetch } = memberAPIResponse;
 
   useEffect(() => {
     form.setFieldsValue({
@@ -48,7 +48,6 @@ const MemberForm: React.FC = () => {
     if (!!id && data) {
       const memberData = data.data as any;
       const dataById = memberData.filter((item: any) => item.id === id);
-      debugger;
       if (dataById.length) {
         const dataAtIndex0 = dataById[0];
         form.setFieldsValue({
@@ -65,6 +64,7 @@ const MemberForm: React.FC = () => {
     notification.success({
       message: `Member ${action} successfully`,
     });
+    refetch();
   };
 
   const handleFailedToSave = () => {
@@ -80,14 +80,6 @@ const MemberForm: React.FC = () => {
       onError: handleFailedToSave,
     });
   };
-
-  // const handleUpdateMember = () => {
-  //   const formattedData = formatFormData(form.getFieldsValue());
-  //   memberDelete.mutate(formattedData, {
-  //     onSuccess: () => successCallback('deleted'),
-  //     onError: handleFailedToSave,
-  //   });
-  // };
 
   const handleFormCancel = () => {
     dispatch(hideDrawer());

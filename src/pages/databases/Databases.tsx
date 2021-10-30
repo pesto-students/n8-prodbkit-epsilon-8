@@ -26,7 +26,7 @@ const Databases: React.FC = () => {
   const [searchInputText, setSearchInputText] = useState<string>('');
   const databaseAPIResponse = useQuery('databases', fetchDatabaseList, { retry: false });
   const databaseDelete = useMutation((id: string) => handleDatabaseDelete(id), { retry: false });
-  const { data } = databaseAPIResponse;
+  const { data, refetch } = databaseAPIResponse;
 
   const handleViewDatabase = (id: string) => {
     dispatch(showDrawer({ key: 'viewDatabase', id: id, isReadOnly: true }));
@@ -40,6 +40,7 @@ const Databases: React.FC = () => {
     databaseDelete.mutate(id, {
       onSuccess: () => {
         notification.success({ message: `Database ${name} deleted successfully` });
+        refetch();
       },
       onError: () => {
         notification.error({
