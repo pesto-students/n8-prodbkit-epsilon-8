@@ -1,13 +1,9 @@
 import axios from 'axios';
+import ApiService from 'shared/api';
 import { getURL, getUrlById } from 'shared/utils/api';
 
 export const fetchUserCredentialsList = () => {
-  return axios.get(getURL('/db'), {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  return ApiService.get('/db-credential');
 };
 
 export const handleUserCredentialsDelete = (id: string) => {

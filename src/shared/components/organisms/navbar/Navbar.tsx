@@ -22,7 +22,6 @@ export interface INavbar {
 const Navbar: React.FC<INavbar> = ({ isUserLoggedin, navbarItemList }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const [activeLink, setActiveLink] = useState(navbarItemList[0]?.name);
 
   const handleUserLogin = () => {
     dispatch(showDrawer({ key: 'login' }));

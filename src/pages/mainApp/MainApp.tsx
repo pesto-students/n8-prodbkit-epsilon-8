@@ -1,10 +1,8 @@
-import { isEmpty } from 'lodash';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router';
 import { loginUser, logoutUser } from 'redux-features/auth';
 import { routes } from 'routes';
-import ApiService from 'shared/api';
 import AntDSkeleton from 'shared/components/atoms/skeleton/Skeleton';
 import Navbar from 'shared/components/organisms/navbar/Navbar';
 import {
@@ -28,7 +26,7 @@ const MainApp = () => {
   const token = localStorage.getItem('jwt_token');
 
   useEffect(() => {
-    if (isEmpty(token)) {
+    if (!token || token.length === 0) {
       dispatch(logoutUser());
       return;
     }

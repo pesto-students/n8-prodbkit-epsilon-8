@@ -8,9 +8,13 @@ import {
 import { notification, Space } from 'antd';
 import confirm from 'antd/lib/modal/confirm';
 import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useMutation, useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
+import { useHistory } from 'react-router';
+import { routes } from 'routes';
+import ErrorUI from 'shared/components/atoms/errorUI/ErrorUI';
 import Header from 'shared/components/atoms/header/Header';
 import CommonHelmet from 'shared/components/atoms/helmet/Helmet';
 import CommonTable from 'shared/components/organisms/table/Table';
@@ -28,6 +32,7 @@ const Members: React.FC = () => {
   const memberDelete = useMutation((id: string) => handleMemberDelete(id), {
     retry: false,
   });
+  const history = useHistory();
 
   const { data, refetch } = memberAPIResponse;
 
@@ -90,7 +95,6 @@ const Members: React.FC = () => {
       render: (text: string, record: any) => (
         <Space size={8}>
           <InfoCircleOutlined onClick={() => handleViewMember(record.id)} />
-          {/* <EditOutlined onClick={() => handleEditMember(record.id)} /> */}
           <DeleteOutlined onClick={() => handleDeleteMember(record.id, record.email)} />
         </Space>
       ),
@@ -104,18 +108,25 @@ const Members: React.FC = () => {
   return (
     <div className={styles.memberWrapper}>
       <CommonHelmet title={PAGE_TITLE} />
-      <Header
-        title={PAGE_TITLE}
-        buttonText="Add Member"
-        buttonCallback={handleAddMember}
-        showSearchInput
-        buttonIcon={<PlusOutlined />}
-      />
-      <CommonTable
-        columns={columns}
-        loading={memberAPIResponse.isLoading}
-        dataSource={data?.data}
-      />
+      <ErrorBoundary
+        FallbackComponent={ErrorUI}
+        onReset={() => {
+          history.push(routes.dashboard);
+        }}
+      >
+        <Header
+          title={PAGE_TITLE}
+          buttonText="Add Member"
+          buttonCallback={handleAddMember}
+          showSearchInput
+          buttonIcon={<PlusOutlined />}
+        />
+        <CommonTable
+          columns={columns}
+          loading={memberAPIResponse.isLoading}
+          dataSource={data?.data}
+        />
+      </ErrorBoundary>
     </div>
   );
 };

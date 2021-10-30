@@ -5,12 +5,15 @@ import {
   InfoCircleOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { notification, Space, Table, Tag } from 'antd';
+import { notification, Space } from 'antd';
 import confirm from 'antd/lib/modal/confirm';
 import React, { useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useMutation, useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { routes } from 'routes';
+import ErrorUI from 'shared/components/atoms/errorUI/ErrorUI';
 import Header from 'shared/components/atoms/header/Header';
 import CommonHelmet from 'shared/components/atoms/helmet/Helmet';
 import CommonTable from 'shared/components/organisms/table/Table';
@@ -116,22 +119,31 @@ const Teams: React.FC = () => {
   return (
     <>
       <CommonHelmet title={PAGE_TITLE} />
-      <div className={styles.teamWrapper}>
-        <Header
-          title={PAGE_TITLE}
-          buttonText="Add Team"
-          buttonCallback={handleAddTeam}
-          showSearchInput
-          onSearchTextChange={handleTeamSearch}
-          buttonIcon={<PlusOutlined />}
-        />
-        <CommonTable
-          columns={columns}
-          loading={teamsAPIResponse.isLoading}
-          rowKey={'team_id'}
-          dataSource={teamsAPIResponse === undefined ? [] : handleTableData(data, searchInputText)}
-        />
-      </div>
+      <ErrorBoundary
+        FallbackComponent={ErrorUI}
+        onReset={() => {
+          history.push(routes.dashboard);
+        }}
+      >
+        <div className={styles.teamWrapper}>
+          <Header
+            title={PAGE_TITLE}
+            buttonText="Add Team"
+            buttonCallback={handleAddTeam}
+            showSearchInput
+            onSearchTextChange={handleTeamSearch}
+            buttonIcon={<PlusOutlined />}
+          />
+          <CommonTable
+            columns={columns}
+            loading={teamsAPIResponse.isLoading}
+            rowKey={'team_id'}
+            dataSource={
+              teamsAPIResponse === undefined ? [] : handleTableData(data, searchInputText)
+            }
+          />
+        </div>
+      </ErrorBoundary>
     </>
   );
 };

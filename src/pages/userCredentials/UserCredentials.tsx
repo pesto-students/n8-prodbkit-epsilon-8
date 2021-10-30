@@ -80,18 +80,18 @@ const UserCredentials: React.FC = () => {
       key: 'name',
     },
     {
-      title: 'Description',
+      title: 'Team',
       dataIndex: 'description',
       key: 'description',
       render: (text: string, record: any) => record.description || '-',
     },
     {
-      title: 'Connection string',
+      title: 'Member',
       dataIndex: 'connection_string',
       key: 'connection_string',
     },
     {
-      title: 'Environment',
+      title: 'Access level',
       dataIndex: 'environment',
       key: 'environment',
     },

@@ -1,3 +1,4 @@
+@import 'shared/styles/breakpoints';
 @import 'shared/styles/font';
 @import 'shared/styles/global';
 @import 'shared/styles/light-theme';
@@ -18,22 +19,33 @@
 }
 
 .logo {
-  width: 35px;
-  height: 35px;
-  background: url('../../../../assets/database.svg') no-repeat;
-  background-size: cover;
-  &:after {
-    content: 'Pro-DB Kit';
-    position: absolute;
-    top: 1rem;
-    left: 4rem;
-    color: $primary-background;
-    font-size: $font-heading;
-    font-weight: $fontBold;
+  @include for-size(tablet-landscape-up) {
+    width: 35px;
+    height: 35px;
+    background: url('../../../../assets/database.svg') no-repeat;
+    background-size: cover;
+    &:after {
+      content: 'Pro-DB Kit';
+      position: absolute;
+      top: 1rem;
+      left: 4rem;
+      color: $primary-background;
+      font-size: $font-heading;
+      font-weight: $fontBold;
+    }
   }
 }
 
 .navList {
+  @include for-size(phone-only) {
+    font-size: $font-small;
+  }
+  @include for-size(tablet-portrait-up) {
+    font-size: $font-small;
+  }
+  @include for-size(tablet-landscape-up) {
+    font-size: $font-normal;
+  }
   @include flex(center, flex-start);
   list-style: none;
   margin: 0;

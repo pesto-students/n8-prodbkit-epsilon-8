@@ -8,8 +8,12 @@ import {
 import { notification, Space, Table } from 'antd';
 import confirm from 'antd/lib/modal/confirm';
 import React, { useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useMutation, useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { routes } from 'routes';
+import ErrorUI from 'shared/components/atoms/errorUI/ErrorUI';
 import Header from 'shared/components/atoms/header/Header';
 import CommonHelmet from 'shared/components/atoms/helmet/Helmet';
 import CommonTable from 'shared/components/organisms/table/Table';
@@ -28,6 +32,7 @@ const Databases: React.FC = () => {
   const databaseDelete = useMutation((id: string) => handleDatabaseDelete(id), { retry: false });
   const { data, refetch } = databaseAPIResponse;
 
+  const history = useHistory();
   const handleViewDatabase = (id: string) => {
     dispatch(showDrawer({ key: 'viewDatabase', id: id, isReadOnly: true }));
   };
@@ -109,20 +114,29 @@ const Databases: React.FC = () => {
   return (
     <div className={styles.databasesWrapper}>
       <CommonHelmet title={PAGE_TITLE} />
-      <Header
-        title={PAGE_TITLE}
-        buttonText="Add Database"
-        buttonCallback={handleAddDatabase}
-        showSearchInput
-        onSearchTextChange={handleSearchText}
-        buttonIcon={<PlusOutlined />}
-      />
-      <CommonTable
-        columns={columns}
-        loading={databaseAPIResponse.isLoading}
-        rowKey={'id'}
-        dataSource={databaseAPIResponse === undefined ? [] : handleTableData(data, searchInputText)}
-      />
+      <ErrorBoundary
+        FallbackComponent={ErrorUI}
+        onReset={() => {
+          history.push(routes.dashboard);
+        }}
+      >
+        <Header
+          title={PAGE_TITLE}
+          buttonText="Add Database"
+          buttonCallback={handleAddDatabase}
+          showSearchInput
+          onSearchTextChange={handleSearchText}
+          buttonIcon={<PlusOutlined />}
+        />
+        <CommonTable
+          columns={columns}
+          loading={databaseAPIResponse.isLoading}
+          rowKey={'id'}
+          dataSource={
+            databaseAPIResponse === undefined ? [] : handleTableData(data, searchInputText)
+          }
+        />
+      </ErrorBoundary>
     </div>
   );
 };

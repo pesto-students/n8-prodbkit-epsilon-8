@@ -1,0 +1,16 @@
+@import 'shared/styles/light-theme';
+@import 'shared/styles/global';
+@import 'shared/styles/mixins';
+
+.footerWrapper {
+  @extend .main-bar;
+  @include flex(center, flex-end);
+  height: 2rem;
+  color: $secondary-text-color;
+  text-align: center;
+}
+
+.positionBottom {
+  position: fixed;
+  bottom: 0;
+}

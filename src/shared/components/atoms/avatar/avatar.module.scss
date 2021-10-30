@@ -1,9 +1,15 @@
+@import 'shared/styles/breakpoints';
 @import 'shared/styles/font';
 @import 'shared/styles/light-theme';
 
 .label {
-  font-size: $font-normal;
-  font-weight: $fontBold;
+  @include for-size(phone-only) {
+    display: none;
+  }
+  @include for-size(tablet-landscape-up) {
+    font-size: $font-normal;
+    font-weight: $fontBold;
+  }
 }
 
 .labelDark {
