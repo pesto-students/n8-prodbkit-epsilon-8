@@ -11,12 +11,18 @@
 
 ## Figma link
 
-<a href="https://www.figma.com/file/hYpGWOnWzFGTNGtfiMZ1WS/DBACS--dashboard?node-id=11%3A25">https://www.figma.com/file/hYpGWOnWzFGTNGtfiMZ1WS/DBACS--dashboard?node-id=11%3A25</a>
+<a href="https://www.figma.com/file/hYpGWOnWzFGTNGtfiMZ1WS/DBACS--dashboard?node-id=11%3A25">Figma</a>
 
 ## Login credentials
 
+```sh
 Email: test@user.io
 Password: test-user@pass
+```
+
+## Backend Github Repository
+
+<a href="https://github.com/pesto-students/n8-prodbkit-service-epsilon-8">Repo link</a>
 
 ## Application screenshots
 
