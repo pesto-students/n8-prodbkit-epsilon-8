@@ -15,11 +15,13 @@
 .introductionTitle {
   font-size: $font-heading-extra-large;
   font-weight: $fontBolder;
+  text-align: center;
 }
 
 .introductionText {
   font-size: $font-large;
   padding: 20px;
+  text-align: center;
 }
 
 .designBtn {
@@ -46,7 +48,7 @@
 
 .featuresWrapper {
   @include flex(top, flex-start, row);
-  padding: 3rem 1rem;
+  padding: 1rem;
 }
 
 .featureSectionWrapper .featuresWrapper:nth-child(2n) {
