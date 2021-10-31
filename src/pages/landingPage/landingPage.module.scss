@@ -19,6 +19,7 @@
 
 .introductionText {
   font-size: $font-large;
+  padding: 20px;
 }
 
 .designBtn {
@@ -54,11 +55,13 @@
 
 .featureImage {
   flex-grow: 1;
-  width: 40rem;
+  width: 20rem;
+  padding: 2rem;
 }
 
 .featureTextWrapper {
   flex-grow: 2;
+  padding: 5rem;
 }
 
 .featureTitle {
