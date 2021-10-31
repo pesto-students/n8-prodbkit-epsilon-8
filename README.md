@@ -29,9 +29,9 @@ npm run test
 
 ## Screenshots
 
-<img alt="Home view" src="/home-snap.PNG" />
-<img alt="Pricing view" src="/pricing-snap.PNG" />
-<img alt="Login view" src="/login-snap.PNG" />
-<img alt="Teams view" src="/team-snap.PNG" />
-<img alt="Members view" src="/member-snap.PNG" />
-<img alt="Teams view" src="/audit-snap.PNG" />
+<img alt="Home view" src="/public/home-snap.PNG" />
+<img alt="Pricing view" src="/public/pricing-snap.PNG" />
+<img alt="Login view" src="/public/login-snap.PNG" />
+<img alt="Teams view" src="/public/team-snap.PNG" />
+<img alt="Members view" src="/public/member-snap.PNG" />
+<img alt="Teams view" src="/public/audit-snap.PNG" />
