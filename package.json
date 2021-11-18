@@ -89,4 +89,7 @@
     "prettier": "2.4.1",
     "react-test-renderer": "^17.0.2"
   }
+  "engines": {
+    "node": "14.x"
+  }
 }
