@@ -34,10 +34,6 @@ export const ModeOptions = [
     value: 'PROD',
   },
   {
-    key: 'Stage',
-    value: 'STAGE',
-  },
-  {
     key: 'Development',
     value: 'DEV',
   },
@@ -45,15 +41,7 @@ export const ModeOptions = [
 
 export const PlatformOptions = [
   {
-    key: 'Production',
-    value: 'PROD',
-  },
-  {
-    key: 'Stage',
-    value: 'STAGE',
-  },
-  {
-    key: 'Development',
-    value: 'DEV',
+    key: 'Postgres SQL',
+    value: 'aurora-postgresql',
   },
 ];

@@ -75,25 +75,27 @@ const UserCredentials: React.FC = () => {
 
   const columns = [
     {
-      title: 'Database name',
+      title: 'Permission',
       dataIndex: 'name',
       key: 'name',
     },
     {
+      title: 'Database',
+      dataIndex: 'db_name',
+      key: 'db_name',
+      render: (text: string, record: any) => record.database.name || '-',
+    },
+    {
       title: 'Team',
-      dataIndex: 'description',
-      key: 'description',
-      render: (text: string, record: any) => record.description || '-',
+      dataIndex: 'team_name',
+      key: 'team_name',
+      render: (text: string, record: any) => record.team.name || '-',
     },
     {
       title: 'Member',
-      dataIndex: 'connection_string',
-      key: 'connection_string',
-    },
-    {
-      title: 'Access level',
-      dataIndex: 'environment',
-      key: 'environment',
+      dataIndex: 'member_name',
+      key: 'member_name',
+      render: (text: string, record: any) => record.member.name || '-',
     },
     {
       title: 'Actions',
@@ -109,7 +111,7 @@ const UserCredentials: React.FC = () => {
   ];
 
   const handleAddUserCredentials = () => {
-    dispatch(showDrawer({ key: 'addDatabase' }));
+    dispatch(showDrawer({ key: 'addCredentials' }));
   };
 
   return (

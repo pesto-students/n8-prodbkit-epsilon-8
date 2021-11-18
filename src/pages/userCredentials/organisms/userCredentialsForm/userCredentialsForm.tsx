@@ -66,7 +66,7 @@ const DatabaseForm: React.FC = () => {
   const successCallback = (action: 'created' | 'updated' | 'deleted') => {
     dispatch(hideDrawer());
     notification.success({
-      message: `Database ${action} successfully`,
+      message: `User credential ${action} successfully`,
     });
   };
 

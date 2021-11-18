@@ -176,15 +176,6 @@ const DatabaseForm: React.FC = () => {
         </Select>
       </Form.Item>
 
-      <Form.Item name="access" label="Access level" rules={[{ required: true }]}>
-        <Select placeholder="Select access level" disabled={isReadOnly} allowClear>
-          {RoleOptions.map((roleItem: Record<string, string>, index: number) => (
-            <Option key={`role${index}`} value={roleItem.value}>
-              {roleItem.key}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
       {!isReadOnly && (
         <div className={styles.formFooterButtons}>
           <Space direction="horizontal" size={16}>

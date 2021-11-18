@@ -9,7 +9,7 @@ export const handleDatabaseDelete = (id: string) => {
 };
 
 export const handleDatabaseSubmit = (formObject: any) => {
-  return ApiService.get('/db', formObject);
+  return ApiService.post('/db', formObject);
 };
 
 export const handleDatabaseUpdate = (formObject: Record<string, any>) => {
