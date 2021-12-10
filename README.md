@@ -1,8 +1,8 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3a60744f-678f-4f08-a360-7d2e2dcb6560/deploy-status)](https://app.netlify.com/sites/remote-up/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3a60744f-678f-4f08-a360-7d2e2dcb6560/deploy-status)](https://app.netlify.com/sites/pesto-n8-dbacs/deploys)
 
 #
 
-![RemoteUp Logo](./src/assets/database.svg)
+![ProDB-kit Logo](./src/assets/database-icon.svg)
 
 Pro DB kit enables teams to manage database access without involving DB Admins / Devops / IT teams. It allows developers and their managers ( Team Lead, Engineering Managers etc. ) to grant access to the databases they have access to without any intervention from any of the teams administering databases. The goal is to reduce the dependency on Devops / IT teams for granting access to databases and thus enabling them to channelise their energies to more productive tasks at the same time the developers can get access to the systems they need to without going through the vicious cycle of approvals and escalations.
 
@@ -61,7 +61,7 @@ We tried to use a completely modern tech stack while testing out some new techno
 
 # Authors
 
-- [Saurav Arora](hhttps://github.com/sauravarora041294)
+- [Saurav Arora](https://github.com/sauravarora041294)
 - [Abhishek Khanna](https://github.com/assaultkoder95)
 
 <br/>
