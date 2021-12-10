@@ -1,60 +1,71 @@
-<h1 align="center">Welcome to pro-db kit 👋</h1>
-<p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
-</p>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3a60744f-678f-4f08-a360-7d2e2dcb6560/deploy-status)](https://app.netlify.com/sites/remote-up/deploys)
 
-> Pro DB kit enables teams to manage database access without involving DB Admins / Devops / IT teams. It allows developers and their managers ( Team Lead, Engineering Managers etc. ) to grant access to the databases they have access to without any intervention from any of the teams administering databases. The goal is to reduce the dependency on Devops / IT teams for granting access to databases and thus enabling them to channelise their energies to more productive tasks at the same time the developers can get access to the systems they need to without going through the vicious cycle of approvals and escalations.
+#
 
-## App Link
+![RemoteUp Logo](./src/assets/database.svg)
 
-<a href="http://ec2-3-110-44-138.ap-south-1.compute.amazonaws.com:3000">Pro DB kit</a>
+Pro DB kit enables teams to manage database access without involving DB Admins / Devops / IT teams. It allows developers and their managers ( Team Lead, Engineering Managers etc. ) to grant access to the databases they have access to without any intervention from any of the teams administering databases. The goal is to reduce the dependency on Devops / IT teams for granting access to databases and thus enabling them to channelise their energies to more productive tasks at the same time the developers can get access to the systems they need to without going through the vicious cycle of approvals and escalations.
 
-## Figma link
+<br/>
 
-<a href="https://www.figma.com/file/hYpGWOnWzFGTNGtfiMZ1WS/DBACS--dashboard?node-id=11%3A25">Figma</a>
+# Table of Content
 
-## Login credentials
+1. [Demo](#demo)
+2. [Installation](#installation)
+3. [Technology Stack](#technology-stack)
+4. [Authors](#authors)
+5. [License](#license)
 
-```sh
-Email: test@user.io
-Password: test-user@pass
-```
+<br/>
 
-## Backend Github Repository
+# Demo
 
-<a href="https://github.com/pesto-students/n8-prodbkit-service-epsilon-8">Repo link</a>
+[Live Demo](https://n8-prodbkit-epsilon-8.vercel.app/)
 
-## Application screenshots
+<br/>
 
-<img alt="Home view" src="/public/home-snap.PNG" />
-<img alt="Pricing view" src="/public/pricing-snap.PNG" />
-<img alt="Login view" src="/public/login-snap.PNG" />
-<img alt="Teams view" src="/public/team-snap.PNG" />
-<img alt="Members view" src="/public/member-snap.PNG" />
-<img alt="Teams view" src="/public/audit-snap.PNG" />
+Please Note:
 
-This project was bootstrapped with <b>Create React App</b>.
+1. We recommend using this app in Google Chrome
+2. Use the app on Laptop/desktop only as of now.
+3. We are using Auth0 for authentication, so for recruiter login, please don't use Safari, as it blocks third-party cookies.
 
-Below you will find some information on how to perform common tasks.
+<br/>
+Test Credentials:
 
-## Install
+- For Admin
+  - Email: test@user.io
+  - Password: test-user@pass
 
-```sh
-npm install
-```
+<br/>
 
-## Usage
+# Installation
 
-```sh
-npm run start
-```
+- Fork or directly clone this repository to your local machine
+- Use the `npm install` command to install dependencies
+- Once the dependencies are finished installing, use the `npm start` command inside the root directory to open the app in your local browser of choice
 
-## Run tests
+<br/>
 
-```sh
-npm run test
-```
+# Technology Stack
 
-## Author
+We tried to use a completely modern tech stack while testing out some new technologies that we had never used before. This resulted in a fast, performant, and easily-extensible web app that should be fairly future-proof for the coming next several years. We used:
 
-👤 **Team epsilon**
+- [Ant design](https://ant.design/)
+- [Redux toolkit](https://redux-toolkit.js.org/)
+- [Lodash](https://lodash.com/)
+- [Axios](https://axios-http.com/docs/intro)
+- [React Query](https://react-query.tanstack.com/)
+
+<br/>
+
+# Authors
+
+- [Saurav Arora](hhttps://github.com/sauravarora041294)
+- [Abhishek Khanna](https://github.com/assaultkoder95)
+
+<br/>
+
+# License
+
+[MIT](https://opensource.org/licenses/MIT)
