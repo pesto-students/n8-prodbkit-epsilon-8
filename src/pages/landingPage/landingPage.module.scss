@@ -15,10 +15,13 @@
 .introductionTitle {
   font-size: $font-heading-extra-large;
   font-weight: $fontBolder;
+  text-align: center;
 }
 
 .introductionText {
   font-size: $font-large;
+  padding: 20px;
+  text-align: center;
 }
 
 .designBtn {
@@ -45,7 +48,7 @@
 
 .featuresWrapper {
   @include flex(top, flex-start, row);
-  padding: 3rem 1rem;
+  padding: 1rem;
 }
 
 .featureSectionWrapper .featuresWrapper:nth-child(2n) {
@@ -54,11 +57,13 @@
 
 .featureImage {
   flex-grow: 1;
-  width: 40rem;
+  width: 20rem;
+  padding: 2rem;
 }
 
 .featureTextWrapper {
   flex-grow: 2;
+  padding: 5rem;
 }
 
 .featureTitle {

@@ -42,15 +42,9 @@ const LandingPage: React.FC = () => {
             <AntDButton
               className={cn(styles.designBtn, styles.primaryDesignBtn)}
               type="primary"
-              text="Check Pricing"
+              text="Get Started For Free"
               icon={<ArrowRightOutlined />}
               onClick={navigateToPricing}
-            />
-            <AntDButton
-              className={cn(styles.designBtn, styles.secondaryDesignBtn)}
-              type="link"
-              text="Login"
-              onClick={handleLogin}
             />
           </Space>
         </div>
