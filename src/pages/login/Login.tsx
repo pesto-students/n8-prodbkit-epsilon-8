@@ -11,6 +11,9 @@ import { routes } from 'routes';
 import styles from './login.module.scss';
 import { submitGoogleLogin, submitManualLogin } from './services/login.service';
 
+const TEST_USER_EMAIL = 'test@user.io';
+const TEST_USER_PASSWORD = 'test-user@pass';
+
 const Login: React.FC = () => {
   const [tokenId, setTokenID] = useState<string>('');
   const dispatch = useDispatch();
@@ -89,6 +92,14 @@ const Login: React.FC = () => {
     }
   };
 
+  const fillTestCredentials = (e: any) => {
+    e.preventDefault();
+    form.setFieldsValue({
+      email: TEST_USER_EMAIL,
+      password: TEST_USER_PASSWORD,
+    });
+  };
+
   return (
     <Form layout="vertical" form={form}>
       <Form.Item name="email" label="Email id" rules={[{ required: true, type: 'email' }]}>
@@ -96,6 +107,16 @@ const Login: React.FC = () => {
       </Form.Item>
       <Form.Item name="password" label="Password" rules={[{ required: true }]}>
         <Input.Password placeholder="Enter your password" size="large" />
+      </Form.Item>
+      <Form.Item>
+        <Button
+          type="ghost"
+          size="large"
+          onClick={(e: any) => fillTestCredentials(e)}
+          className={styles.formBtn}
+        >
+          Fill test credentials
+        </Button>
       </Form.Item>
       <Form.Item>
         <Button
