@@ -110,7 +110,7 @@ const Login: React.FC = () => {
       </Form.Item>
       <Form.Item>
         <Button
-          type="ghost"
+          type="primary"
           size="large"
           onClick={(e: any) => fillTestCredentials(e)}
           className={styles.formBtn}
