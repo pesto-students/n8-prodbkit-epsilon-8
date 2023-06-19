@@ -5,8 +5,8 @@
   "dependencies": {
     "@ant-design/icons": "4.7.0",
     "@reduxjs/toolkit": "1.6.2",
-    "@sentry/react": "6.13.3",
-    "@sentry/tracing": "6.13.3",
+    "@sentry/react": "6.19.7",
+    "@sentry/tracing": "6.19.7",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "11.2.7",
     "@testing-library/user-event": "12.8.3",
